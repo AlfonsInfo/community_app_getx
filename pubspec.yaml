@@ -1,0 +1,34 @@
+name: jdlcommunity_getx
+version: 0.1.0
+publish_to: none
+description: A new Flutter project.
+environment:
+  sdk: ">=3.0.5 <4.0.0"
+
+dependencies:
+  carousel_slider: ^4.2.1
+  flutter:
+    sdk: flutter
+  flutter_localizations: # Add this line
+    sdk: flutter # Add this line
+  flutter_localization: ^0.1.14
+  font_awesome_flutter: ^10.6.0
+  get: 4.6.0
+  google_fonts: ^6.1.0
+  http: ^1.0.0
+  intl: ^0.18.0
+  shared_preferences: ^2.2.2
+  sqflite: ^2.3.0
+
+dev_dependencies:
+  flutter_lints: ^2.0.0
+  flutter_test:
+    sdk: flutter
+
+
+
+flutter: 
+  generate: true
+  uses-material-design: true
+  assets:
+    - assets/images/

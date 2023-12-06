@@ -1,0 +1,13 @@
+{
+    "language" : "English",
+    "@language" : {
+        "description" : "Input Username"
+    },
+
+    "username" : "Username",
+    "password" : "password",
+    "forgot_password" : "Forgot Password",
+    "login" : "login",
+    "donthaveaccount" : "Don't have account yet ?",
+    "register" : "Register"
+}

@@ -1,0 +1,13 @@
+{
+    "language" : "Indonesia",
+    "@language" : {
+        "description" : "Bahasa saat ini"
+    },
+    "username" : "Nama Pengguna",
+    "password" : "Kata sandi",
+    "forgot_password" : "Lupa kata sandi",
+    "login" : "Masuk",
+    "donthaveaccount" : "Belum punya akun ?",
+    "register" : "Daftar"
+
+}
