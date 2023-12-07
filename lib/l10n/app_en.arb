@@ -19,5 +19,6 @@
     "terms_condition" : "Terms & Condition",
     "empty_validate": "{field} can not be empty",
     "toggle_disable_title": "Language toggle has been disabled",
-    "toggle_disable_message": "Validate your input first"
+    "toggle_disable_message": "Validate your input first",
+    "minimum_length" : "{field} minimum length {angka}" 
 }

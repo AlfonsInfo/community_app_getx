@@ -18,6 +18,8 @@
     "terms_condition" : "Syarat & Ketentuan",
     "empty_validate": "{field} tidak boleh kosong",
     "toggle_disable_title": "Pilihan bahasa dinonaktifkan",
-    "toggle_disable_message": "validasi inputkan Anda terlebih dahulu"
+    "toggle_disable_message": "validasi inputkan Anda terlebih dahulu",
+    "minimum_length" : "{field} memiliki panjang minimum {angka}" 
+
 
 }

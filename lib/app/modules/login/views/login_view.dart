@@ -8,6 +8,7 @@ import 'package:jdlcommunity_getx/app/modules/login/controllers/login_controller
 import 'package:jdlcommunity_getx/app/modules/login/views/slide_show_activity_images.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:jdlcommunity_getx/app/routes/app_pages.dart';
+import 'package:jdlcommunity_getx/app/utils/logging_utils.dart';
 import 'package:jdlcommunity_getx/main_app_controller.dart';
 
 class LoginView extends GetView<LoginController> {
@@ -23,7 +24,7 @@ class LoginView extends GetView<LoginController> {
           children: [
             const SlideShowActivityImages(),
             WidgetConstant.spacingBottomX2,
-            toggleLanguage(prefixLocalizations),
+            toggleLanguage(prefixLocalizations, context),
             WidgetConstant.spacingBottomX1,
             loginForm(prefixLocalizations, context),
             registerButton(prefixLocalizations),
@@ -99,38 +100,43 @@ class LoginView extends GetView<LoginController> {
   }
 
   Widget loginForm(AppLocalizations prefixLocalizations, BuildContext context) {
-    return  Obx(
-      () => Form(
-          key: controller.formKey.value,
-          child: Column(
-          children: [
-            Padding(
+    return Form(
+        child: Column(
+        children: [
+          Padding(
+            padding: WidgetConstant.edgeInsetForm05,
+            child: TextFormField(
+                onChanged: (value) =>controller.usernameChanged(value),
+                onTap: () {
+                  controller.checkEverFocusedOnUsername();
+                },
+                decoration:
+                    InputDecoration(
+                      labelText: prefixLocalizations.username,
+                      errorText: controller.errorTextUsername.value
+                )),
+          ),
+          Obx(
+            () => Padding(
               padding: WidgetConstant.edgeInsetForm05,
               child: TextFormField(
-                  controller: controller.usernameController.value,
-                  validator: (value) => controller.validateUsername(value ?? "", context),
-                  decoration:
-                      InputDecoration(labelText: prefixLocalizations.username)),
+                  onChanged: (value) => controller.passwordChanged(value),
+                  onTap:(){
+                    controller.checkEverFocusedOnPassword();
+                  },
+                  obscureText: controller.isEyeToggleHideItem.value,
+                  decoration: InputDecoration(
+                      errorText: controller.errorTextPassword.value,
+                      labelText: prefixLocalizations.password,
+                      suffixIcon: controller.isEyeToggleHideItem.value
+                          ? WidgetConstant.eyePassword(FontAwesomeIcons.eye,controller, controller.isEyeToggleHideItem)
+                          : WidgetConstant.eyePassword(FontAwesomeIcons.eyeSlash,controller,controller.isEyeToggleHideItem))),
             ),
-            Obx(
-              () => Padding(
-                padding: WidgetConstant.edgeInsetForm05,
-                child: TextFormField(
-                    obscureText: controller.isEyeToggleHideItem.value,
-                    controller: controller.passwordController.value,
-                    validator: (value) => controller.validatePassword(value ?? "",context),
-                    decoration: InputDecoration(
-                        labelText: prefixLocalizations.password,
-                        suffixIcon: controller.isEyeToggleHideItem.value
-                            ? WidgetConstant.eyePassword(FontAwesomeIcons.eye,controller, controller.isEyeToggleHideItem)
-                            : WidgetConstant.eyePassword(FontAwesomeIcons.eyeSlash,controller,controller.isEyeToggleHideItem))),
-              ),
-            ),
-            forgotPasswordButton(context),
-            loginButton(context),
-          ],
-        ),
-      ),
+          ),
+          forgotPasswordButton(context),
+          loginButton(context),
+        ],
+          ),
     );
   }
 
@@ -151,7 +157,7 @@ class LoginView extends GetView<LoginController> {
     );
   }
 
-  Obx toggleLanguage(AppLocalizations prefixLocalizations){
+  Obx toggleLanguage(AppLocalizations prefixLocalizations, BuildContext context){
     return Obx(
       () => Row(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -165,20 +171,6 @@ class LoginView extends GetView<LoginController> {
                 InkWell(
                   child: Switch(
                     onChanged: (bool value) {
-                      //* option 1 : disable by force
-                      // if(!controller.isToggleEnable.value){
-                      //   Get.snackbar(
-                      //     prefixLocalizations.toggle_disable_title, 
-                      //     prefixLocalizations.toggle_disable_message, 
-                      //     colorText: Colors.black,
-                      //     backgroundColor: Colors.white
-                      //     );
-                      //   return;
-                      // }
-                      //* option 2 : revalidate
-                      if(controller.flagTryingInput.value == 1){
-                        controller.formKey.value.currentState?.validate();
-                      }
                       mainAppController.setLanguage(controller.isIndoLanguageToggle);
                       controller.toggleLanguage();
                     },
@@ -210,16 +202,7 @@ class LoginView extends GetView<LoginController> {
       child: SizedBox(
           width: double.infinity,
           child: ElevatedButton(
-              onPressed: () {
-                var isNoError = controller.formKey.value.currentState!.validate();
-                controller.isToggleEnable.value = controller.formKey.value.currentState!.validate();
-                controller.flagTryingInput = 1.obs;
-                if(isNoError){
-                controller.flagTryingInput = 0.obs;
-                  controller.isToggleEnable.value = controller.formKey.value.currentState!.validate();
-                  Get.toNamed(Routes.home);
-                }
-              },
+              onPressed: () => controller.submitFunction(),
               child: Text(AppLocalizations.of(context).login))),
     );
   }

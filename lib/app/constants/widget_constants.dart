@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:jdlcommunity_getx/app/modules/abstract/controller_abstract.dart';
 
 abstract class WidgetConstant{
