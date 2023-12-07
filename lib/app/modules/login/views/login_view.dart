@@ -165,14 +165,19 @@ class LoginView extends GetView<LoginController> {
                 InkWell(
                   child: Switch(
                     onChanged: (bool value) {
-                      if(!controller.isToggleEnable.value){
-                        Get.snackbar(
-                          prefixLocalizations.toggle_disable_title, 
-                          prefixLocalizations.toggle_disable_message, 
-                          colorText: Colors.black,
-                          backgroundColor: Colors.white
-                          );
-                        return;
+                      //* option 1 : disable by force
+                      // if(!controller.isToggleEnable.value){
+                      //   Get.snackbar(
+                      //     prefixLocalizations.toggle_disable_title, 
+                      //     prefixLocalizations.toggle_disable_message, 
+                      //     colorText: Colors.black,
+                      //     backgroundColor: Colors.white
+                      //     );
+                      //   return;
+                      // }
+                      //* option 2 : revalidate
+                      if(controller.flagTryingInput.value == 1){
+                        controller.formKey.value.currentState?.validate();
                       }
                       mainAppController.setLanguage(controller.isIndoLanguageToggle);
                       controller.toggleLanguage();
@@ -208,7 +213,9 @@ class LoginView extends GetView<LoginController> {
               onPressed: () {
                 var isNoError = controller.formKey.value.currentState!.validate();
                 controller.isToggleEnable.value = controller.formKey.value.currentState!.validate();
+                controller.flagTryingInput = 1.obs;
                 if(isNoError){
+                controller.flagTryingInput = 0.obs;
                   controller.isToggleEnable.value = controller.formKey.value.currentState!.validate();
                   Get.toNamed(Routes.home);
                 }

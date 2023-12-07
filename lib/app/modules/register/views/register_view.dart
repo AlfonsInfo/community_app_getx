@@ -29,7 +29,7 @@ class RegisterView extends GetView<RegisterController> {
         children: [
           WidgetConstant.spacingBottomX3,
           WidgetConstant.spacingBottomX3,
-          inputFullName(prefixLocalizations),
+          inputFullName(prefixLocalizations,context),
           inputUsername(prefixLocalizations),
           inputEmail(prefixLocalizations),
           inputPassword(prefixLocalizations),
@@ -53,10 +53,12 @@ class RegisterView extends GetView<RegisterController> {
     );
   }
 
-  Padding inputFullName(AppLocalizations prefixLocalizations) {
+  Padding inputFullName(AppLocalizations prefixLocalizations, BuildContext context) {
     return Padding(
           padding: WidgetConstant.edgeInsetForm05,
           child: TextFormField(
+            controller: controller.fullNameController.value,
+            validator: (value) => controller.validateFullName(value ?? "", context),
             decoration:
                 InputDecoration(labelText: prefixLocalizations.full_name),
           ),

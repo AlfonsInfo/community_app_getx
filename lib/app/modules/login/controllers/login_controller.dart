@@ -8,6 +8,7 @@ class LoginController extends GetxController implements GetxControllerAbstract {
   RxBool isIndoLanguageToggle = RxBool(true);
   RxBool isEyeToggleHideItem = RxBool(true);
   RxBool isToggleEnable = RxBool(true);
+  RxInt flagTryingInput = 0.obs;
   final usernameController = TextEditingController().obs;
   final passwordController = TextEditingController().obs;
 
