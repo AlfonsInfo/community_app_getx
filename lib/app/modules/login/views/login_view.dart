@@ -98,32 +98,40 @@ class LoginView extends GetView<LoginController> {
     );
   }
 
-  Form loginForm(AppLocalizations prefixLocalizations, BuildContext context) {
-    return Form(
-        child: Column(
-      children: [
-        Padding(
-          padding: WidgetConstant.edgeInsetForm05,
-          child: TextFormField(
-              decoration:
-                  InputDecoration(labelText: prefixLocalizations.username)),
+  Widget loginForm(AppLocalizations prefixLocalizations, BuildContext context) {
+    return  Obx(
+      () => Form(
+          key: controller.formKey.value,
+          child: Column(
+          children: [
+            Padding(
+              padding: WidgetConstant.edgeInsetForm05,
+              child: TextFormField(
+                  controller: controller.usernameController.value,
+                  validator: (value) => controller.validateUsername(value ?? "", context),
+                  decoration:
+                      InputDecoration(labelText: prefixLocalizations.username)),
+            ),
+            Obx(
+              () => Padding(
+                padding: WidgetConstant.edgeInsetForm05,
+                child: TextFormField(
+                    obscureText: controller.isEyeToggleHideItem.value,
+                    controller: controller.passwordController.value,
+                    validator: (value) => controller.validatePassword(value ?? "",context),
+                    decoration: InputDecoration(
+                        labelText: prefixLocalizations.password,
+                        suffixIcon: controller.isEyeToggleHideItem.value
+                            ? WidgetConstant.eyePassword(FontAwesomeIcons.eye,controller, controller.isEyeToggleHideItem)
+                            : WidgetConstant.eyePassword(FontAwesomeIcons.eyeSlash,controller,controller.isEyeToggleHideItem))),
+              ),
+            ),
+            forgotPasswordButton(context),
+            loginButton(context),
+          ],
         ),
-        Obx(
-          () => Padding(
-            padding: WidgetConstant.edgeInsetForm05,
-            child: TextFormField(
-                obscureText: controller.isEyeToggleHideItem.value,
-                decoration: InputDecoration(
-                    labelText: prefixLocalizations.password,
-                    suffixIcon: controller.isEyeToggleHideItem.value
-                        ? WidgetConstant.eyePassword(FontAwesomeIcons.eye,controller, controller.isEyeToggleHideItem)
-                        : WidgetConstant.eyePassword(FontAwesomeIcons.eyeSlash,controller,controller.isEyeToggleHideItem))),
-          ),
-        ),
-        forgotPasswordButton(context),
-        loginButton(context),
-      ],
-    ));
+      ),
+    );
   }
 
 
@@ -157,9 +165,19 @@ class LoginView extends GetView<LoginController> {
                 InkWell(
                   child: Switch(
                     onChanged: (bool value) {
+                      if(!controller.isToggleEnable.value){
+                        Get.snackbar(
+                          prefixLocalizations.toggle_disable_title, 
+                          prefixLocalizations.toggle_disable_message, 
+                          colorText: Colors.black,
+                          backgroundColor: Colors.white
+                          );
+                        return;
+                      }
                       mainAppController.setLanguage(controller.isIndoLanguageToggle);
                       controller.toggleLanguage();
                     },
+                    inactiveThumbColor: Colors.grey,
                     value: controller.isIndoLanguageToggle.value,
                     activeThumbImage: Image.asset(
                       ImageAssetPaths.indonesianFlag,
@@ -188,7 +206,12 @@ class LoginView extends GetView<LoginController> {
           width: double.infinity,
           child: ElevatedButton(
               onPressed: () {
-                Get.toNamed(Routes.home);
+                var isNoError = controller.formKey.value.currentState!.validate();
+                controller.isToggleEnable.value = controller.formKey.value.currentState!.validate();
+                if(isNoError){
+                  controller.isToggleEnable.value = controller.formKey.value.currentState!.validate();
+                  Get.toNamed(Routes.home);
+                }
               },
               child: Text(AppLocalizations.of(context).login))),
     );

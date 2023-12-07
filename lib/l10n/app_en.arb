@@ -7,7 +7,7 @@
     "full_name" : "Full Name",
     "username" : "Username",
     "password" : "Password",
-    "reinput_password" : "Reinput Password",
+    "reinput_password" : "Re-input Password",
     "forgot_password" : "Forgot Password",
     "email" : "Email",
     "login" : "login",
@@ -16,5 +16,8 @@
     "about_jdlc" : "About JDLC",
     "biometric" : "Biometric",
     "contact_us" : "Contact us",
-    "terms_condition" : "Terms & Condition"
+    "terms_condition" : "Terms & Condition",
+    "empty_validate": "{field} can not be empty",
+    "toggle_disable_title": "Language toggle has been disabled",
+    "toggle_disable_message": "Validate your input first"
 }

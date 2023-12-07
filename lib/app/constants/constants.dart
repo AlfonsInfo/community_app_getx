@@ -33,3 +33,21 @@ abstract class ImageAssetPaths{
   static const englishFlag = "$starterImages/english_flag_circle.png";
 }
 
+abstract class CommonConditions{
+  static bool emptyValue(String value)
+  {
+    return value.isEmpty;
+  }
+
+  static bool dirtyStringWithSpace(String value)
+  {
+    return value.isEmpty;
+  }
+
+  
+  static bool validateNotEmptyAndNotContainSpace(String value)
+  {
+    return emptyValue(value) && dirtyStringWithSpace(value);
+  }
+}
+
