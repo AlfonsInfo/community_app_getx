@@ -3,11 +3,18 @@
     "@language" : {
         "description" : "Bahasa saat ini"
     },
+    "full_name" : "Nama Lengkap",
     "username" : "Nama Pengguna",
     "password" : "Kata sandi",
+    "reinput_password" : "Masukan Ulang Kata sandi",
     "forgot_password" : "Lupa kata sandi",
+    "email" : "Email",
     "login" : "Masuk",
     "donthaveaccount" : "Belum punya akun ?",
-    "register" : "Daftar"
+    "register" : "Daftar",
+    "about_jdlc" : "Tentang JDLC",
+    "biometric" : "Biometrik",
+    "contact_us" : "Kontak Kami",
+    "terms_condition" : "Syarat & Ketentuan"
 
 }

@@ -7,102 +7,176 @@ import 'package:jdlcommunity_getx/app/constants/widget_constants.dart';
 import 'package:jdlcommunity_getx/app/modules/login/controllers/login_controller.dart';
 import 'package:jdlcommunity_getx/app/modules/login/views/slide_show_activity_images.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:jdlcommunity_getx/main_app_controller.dart';
 import 'package:jdlcommunity_getx/app/routes/app_pages.dart';
+import 'package:jdlcommunity_getx/main_app_controller.dart';
 
 class LoginView extends GetView<LoginController> {
   LoginView({Key? key}) : super(key: key);
   final MainAppController mainAppController = Get.put(MainAppController());
+
   @override
   Widget build(BuildContext context) {
-    var prefixLocalizations = controller.appLocalizations.value;
+    var prefixLocalizations = AppLocalizations.of(context);
     return Scaffold(
-        body: SafeArea(
-      child: Column(
-        children: [
-          const SlideShowActivityImages(),
-          const SizedBox(
-            height: 20,
-          ),
-          toggleLanguage(prefixLocalizations!.username,prefixLocalizations,context),
-          const SizedBox(
-            height: 10,
-          ),
-          loginForm(prefixLocalizations, context),
-          registerButton(prefixLocalizations),
-          // const Text("menu slide"),
-        ],
-      ),
-    ));
-  }
-
-  Form loginForm(AppLocalizations prefixLocalizations, BuildContext context) {
-    return Form(
-            child: Column(
+        resizeToAvoidBottomInset: false,
+        body: ListView(
           children: [
-            Padding(
-              padding: WidgetConstant.edgeInsetForm,
-              child: TextFormField(
-                  decoration: InputDecoration(
-                      labelText: prefixLocalizations.username)),
-            ),
-            Padding(
-              padding: WidgetConstant.edgeInsetForm,
-              child: TextFormField(
-                  decoration: InputDecoration(
-                      labelText: prefixLocalizations.password,
-                      suffixIcon: const Icon(FontAwesomeIcons.eyeSlash))),
-            ),
-            forgotPasswordButton(context),
-            loginButton(context),
+            const SlideShowActivityImages(),
+            WidgetConstant.spacingBottomX2,
+            toggleLanguage(prefixLocalizations),
+            WidgetConstant.spacingBottomX1,
+            loginForm(prefixLocalizations, context),
+            registerButton(prefixLocalizations),
+            bottomMenuView(prefixLocalizations)
           ],
         ));
   }
 
-  Padding registerButton(AppLocalizations prefixLocalizations) {
-    return Padding(
-          padding: WidgetConstant.edgeInsetForm,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(prefixLocalizations.donthaveaccount),
-              TextButton(
-                  child: Text(prefixLocalizations.register),
-                  onPressed: () {}),
-            ],
+  SingleChildScrollView bottomMenuView(AppLocalizations prefixLocalizations) {
+    List<Map<String, dynamic>> bottomItem = List.of([
+      {
+        "title": prefixLocalizations.about_jdlc,
+        "logo": FontAwesomeIcons.circleInfo
+      },
+      {
+        "title": prefixLocalizations.biometric,
+        "logo": FontAwesomeIcons.fingerprint
+      },
+      {
+        "title": prefixLocalizations.contact_us,
+        "logo": FontAwesomeIcons.addressBook
+      },
+      {
+        "title": prefixLocalizations.terms_condition,
+        "logo": FontAwesomeIcons.imagePortrait
+      },
+    ]);
+
+    return SingleChildScrollView(
+      child: Column(
+        // mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(
+            height: 120, // <-- you should put some value here
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: bottomItem.length,
+              itemBuilder: (context, index) =>
+                  bottomItemWidget(bottomItem, index),
+            ),
           ),
-        );
+        ],
+      ),
+    );
   }
 
-  Obx toggleLanguage(language,prefixLocalizations,context) {
-    return Obx(
-      () => Padding(
-        padding: const EdgeInsets.only(right: 30.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            InkWell(
-              child: Switch(
-                onChanged: (bool value) {
-                  controller.toggleLanguage();
-                  mainAppController.setLanguage(controller.isIndoLanguageToggle);
-                  Get.offNamed(Routes.login);
-                },
-                value: controller.isIndoLanguageToggle.value,
-                activeThumbImage: Image.asset(
-                  ImageAssetPaths.indonesianFlag,
-                  fit: BoxFit.fitHeight,
-                ).image,
-                inactiveThumbImage: Image.asset(
-                  ImageAssetPaths.englishFlag,
-                  fit: BoxFit.fitHeight,
-                ).image,
-                // activeColor: Colors.red,
-                // inactiveThumbColor: Colors.blue,
-              ),
+  Widget bottomItemWidget(List<Map<String, dynamic>> bottomItem, int index) {
+    return InkWell(
+      onTap: () => {},
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Card(
+          color: Colors.white70,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Icon(bottomItem[index]['logo']),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(bottomItem[index]['title']),
+                )
+              ],
             ),
-          ],
+          ),
         ),
+      ),
+    );
+  }
+
+  Form loginForm(AppLocalizations prefixLocalizations, BuildContext context) {
+    return Form(
+        child: Column(
+      children: [
+        Padding(
+          padding: WidgetConstant.edgeInsetForm05,
+          child: TextFormField(
+              decoration:
+                  InputDecoration(labelText: prefixLocalizations.username)),
+        ),
+        Obx(
+          () => Padding(
+            padding: WidgetConstant.edgeInsetForm05,
+            child: TextFormField(
+                obscureText: controller.isEyeToggleHideItem.value,
+                decoration: InputDecoration(
+                    labelText: prefixLocalizations.password,
+                    suffixIcon: controller.isEyeToggleHideItem.value
+                        ? WidgetConstant.eyePassword(FontAwesomeIcons.eye,controller, controller.isEyeToggleHideItem)
+                        : WidgetConstant.eyePassword(FontAwesomeIcons.eyeSlash,controller,controller.isEyeToggleHideItem))),
+          ),
+        ),
+        forgotPasswordButton(context),
+        loginButton(context),
+      ],
+    ));
+  }
+
+
+  Padding registerButton(AppLocalizations prefixLocalizations) {
+    return Padding(
+      padding: WidgetConstant.edgeInsetForm,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(prefixLocalizations.donthaveaccount),
+          TextButton(
+              child: Text(prefixLocalizations.register), onPressed: () {
+                Get.toNamed(Routes.register);
+              }),
+        ],
+      ),
+    );
+  }
+
+  Obx toggleLanguage(AppLocalizations prefixLocalizations){
+    return Obx(
+      () => Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Text(prefixLocalizations.language),
+          Padding(
+            padding: const EdgeInsets.only(right: 30.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                InkWell(
+                  child: Switch(
+                    onChanged: (bool value) {
+                      mainAppController.setLanguage(controller.isIndoLanguageToggle);
+                      controller.toggleLanguage();
+                    },
+                    value: controller.isIndoLanguageToggle.value,
+                    activeThumbImage: Image.asset(
+                      ImageAssetPaths.indonesianFlag,
+                      fit: BoxFit.fitHeight,
+                    ).image,
+                    inactiveThumbImage: Image.asset(
+                      ImageAssetPaths.englishFlag,
+                      fit: BoxFit.fitHeight,
+                    ).image,
+                    // activeColor: Colors.red,
+                    // inactiveThumbColor: Colors.blue,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -113,7 +187,9 @@ class LoginView extends GetView<LoginController> {
       child: SizedBox(
           width: double.infinity,
           child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.toNamed(Routes.home);
+              },
               child: Text(AppLocalizations.of(context).login))),
     );
   }
@@ -124,7 +200,7 @@ class LoginView extends GetView<LoginController> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Text(AppLocalizations.of(context).forgot_password),
+          TextButton(child: Text(AppLocalizations.of(context).forgot_password), onPressed: () => Get.to("")),
         ],
       ),
     );

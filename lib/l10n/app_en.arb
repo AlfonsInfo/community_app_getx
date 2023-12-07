@@ -4,10 +4,17 @@
         "description" : "Input Username"
     },
 
+    "full_name" : "Full Name",
     "username" : "Username",
-    "password" : "password",
+    "password" : "Password",
+    "reinput_password" : "Reinput Password",
     "forgot_password" : "Forgot Password",
+    "email" : "Email",
     "login" : "login",
     "donthaveaccount" : "Don't have account yet ?",
-    "register" : "Register"
+    "register" : "Register",
+    "about_jdlc" : "About JDLC",
+    "biometric" : "Biometric",
+    "contact_us" : "Contact us",
+    "terms_condition" : "Terms & Condition"
 }

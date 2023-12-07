@@ -6,17 +6,17 @@ import 'package:jdlcommunity_getx/l10n/l10n.dart';
 class MainAppController extends GetxController{
   RxBool isThemeModeBySistem = RxBool(true);
   RxBool isIndonesianLanguage = RxBool(true);
-  
+
   void setLanguage(RxBool language){
     isIndonesianLanguage = language;
     isIndonesianLanguage.listen((value) { 
-      updateLocale();
+      updateLocale(value);
     });
   }
 
-  void updateLocale()
+  void updateLocale(value)
   {
-    Get.updateLocale(isIndonesianLanguage.value ?  const Locale(LocalizationConstant.indoLocale) : const Locale(LocalizationConstant.englishLocale));  
+    Get.updateLocale(value ?  const Locale(LocalizationConstant.indoLocale) : const Locale(LocalizationConstant.englishLocale));  
   }
 
   

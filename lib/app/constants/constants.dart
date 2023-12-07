@@ -21,6 +21,12 @@ abstract class ImageAssetPaths{
   static const splashLogoPath = "$starterImages/itbca.jpg";
   static const futsal = "$starterImages/futsal.jpg";
   static const secretSanta = "$starterImages/secret_santa.jpg";
+  static const barbeque = "$starterImages/barbque.jpg";
+  static const christmas1 = "$starterImages/christmas1.jpg";
+  static const christmas2 = "$starterImages/christmas2.jpg";
+  static const christmas3 = "$starterImages/christmas3.jpg";
+  static const interngathering1 = "$starterImages/intern_gathering.jpg";
+  static const interngathering2 = "$starterImages/intern_gathering_2.jpg";
   // static const indonesianFlag = "$starterImages/indonesian_flag.png";
   // static const englishFlag = "$starterImages/english_flag.png";
   static const indonesianFlag = "$starterImages/indonesian_flag_circle.jpg";
