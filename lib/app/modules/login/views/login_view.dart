@@ -7,14 +7,15 @@ import 'package:jdlcommunity_getx/app/constants/widget_constants.dart';
 import 'package:jdlcommunity_getx/app/modules/login/controllers/login_controller.dart';
 import 'package:jdlcommunity_getx/app/modules/login/views/slide_show_activity_images.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'dart:developer';
+import 'package:jdlcommunity_getx/main_app_controller.dart';
+import 'package:jdlcommunity_getx/app/routes/app_pages.dart';
 
 class LoginView extends GetView<LoginController> {
-  const LoginView({Key? key}) : super(key: key);
-
+  LoginView({Key? key}) : super(key: key);
+  final MainAppController mainAppController = Get.put(MainAppController());
   @override
   Widget build(BuildContext context) {
-    // var prefixLocalizations = AppLocalizations.of(context);
+    var prefixLocalizations = controller.appLocalizations.value;
     return Scaffold(
         body: SafeArea(
       child: Column(
@@ -23,49 +24,57 @@ class LoginView extends GetView<LoginController> {
           const SizedBox(
             height: 20,
           ),
-          toggleLanguage(prefixLocalizations.username),
+          toggleLanguage(prefixLocalizations!.username,prefixLocalizations,context),
           const SizedBox(
             height: 10,
           ),
-          Form(
-              child: Column(
-            children: [
-              Padding(
-                padding: WidgetConstant.edgeInsetForm,
-                child: TextFormField(
-                    decoration: InputDecoration(
-                        labelText: prefixLocalizations.username)),
-              ),
-              Padding(
-                padding: WidgetConstant.edgeInsetForm,
-                child: TextFormField(
-                    decoration: InputDecoration(
-                        labelText: prefixLocalizations.password,
-                        suffixIcon: const Icon(FontAwesomeIcons.eyeSlash))),
-              ),
-              forgotPasswordButton(context),
-              loginButton(context),
-            ],
-          )),
-          Padding(
-            padding: WidgetConstant.edgeInsetForm,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(prefixLocalizations.donthaveaccount),
-                TextButton(
-                    child: Text(prefixLocalizations.register),
-                    onPressed: () {}),
-              ],
-            ),
-          ),
+          loginForm(prefixLocalizations, context),
+          registerButton(prefixLocalizations),
           // const Text("menu slide"),
         ],
       ),
     ));
   }
 
-  Obx toggleLanguage(languaget) {
+  Form loginForm(AppLocalizations prefixLocalizations, BuildContext context) {
+    return Form(
+            child: Column(
+          children: [
+            Padding(
+              padding: WidgetConstant.edgeInsetForm,
+              child: TextFormField(
+                  decoration: InputDecoration(
+                      labelText: prefixLocalizations.username)),
+            ),
+            Padding(
+              padding: WidgetConstant.edgeInsetForm,
+              child: TextFormField(
+                  decoration: InputDecoration(
+                      labelText: prefixLocalizations.password,
+                      suffixIcon: const Icon(FontAwesomeIcons.eyeSlash))),
+            ),
+            forgotPasswordButton(context),
+            loginButton(context),
+          ],
+        ));
+  }
+
+  Padding registerButton(AppLocalizations prefixLocalizations) {
+    return Padding(
+          padding: WidgetConstant.edgeInsetForm,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(prefixLocalizations.donthaveaccount),
+              TextButton(
+                  child: Text(prefixLocalizations.register),
+                  onPressed: () {}),
+            ],
+          ),
+        );
+  }
+
+  Obx toggleLanguage(language,prefixLocalizations,context) {
     return Obx(
       () => Padding(
         padding: const EdgeInsets.only(right: 30.0),
@@ -76,9 +85,10 @@ class LoginView extends GetView<LoginController> {
               child: Switch(
                 onChanged: (bool value) {
                   controller.toggleLanguage();
-                  log(languaget);
+                  mainAppController.setLanguage(controller.isIndoLanguageToggle);
+                  Get.offNamed(Routes.login);
                 },
-                value: controller.isIndoLanguage.value,
+                value: controller.isIndoLanguageToggle.value,
                 activeThumbImage: Image.asset(
                   ImageAssetPaths.indonesianFlag,
                   fit: BoxFit.fitHeight,

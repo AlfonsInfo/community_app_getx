@@ -7,6 +7,7 @@ import 'package:jdlcommunity_getx/app/constants/theme_constants.dart';
 import 'package:jdlcommunity_getx/main_app_controller.dart';
 import 'app/routes/app_pages.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -17,12 +18,12 @@ void main() async {
 
 class MainApp extends StatelessWidget {
   MainApp({super.key, required this.isFirstInstall});
-  final bool isFirstInstall;
   final MainAppController controller = Get.put(MainAppController());
+  final bool isFirstInstall;
   @override
   Widget build(BuildContext context) {
     return  GetMaterialApp(
-      title: "Application",
+      title: AppConstant.application,
       //* ROUTING
       initialRoute: isFirstInstall ? AppPages.initial : AppPages.login,
       getPages: AppPages.routes,
@@ -33,14 +34,14 @@ class MainApp extends StatelessWidget {
       themeMode: controller.isThemeModeBySistem.value ? ThemeMode.system : ThemeConstants.themeManager.themeMode,
       debugShowCheckedModeBanner: AppConstant.isDebug,
       
-      //* LOCALIZATIONS
+      //* INTERNATIONALIZATION
       locale: controller.isIndonesianLanguage.value 
       ? const Locale(LocalizationConstant.indoLocale) 
       : const Locale(LocalizationConstant.englishLocale),
       fallbackLocale: const Locale(LocalizationConstant.englishLocale) ,
       localizationsDelegates: LocalizationConstant.localizationsDelegate,
       supportedLocales:LocalizationConstant.supportedLocale,
-      
+
     );
   }
 } 

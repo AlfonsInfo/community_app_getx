@@ -21,7 +21,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.login,
-      page: () => const LoginView(),
+      page: () => LoginView(),
       binding: LoginBinding(),
       transition: Transition.native,
       transitionDuration: const Duration(seconds: 2)

@@ -1,18 +1,20 @@
 import 'package:get/get.dart';
-import 'package:jdlcommunity_getx/main_app_controller.dart';
-import 'dart:developer';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class LoginController extends GetxController {
 
-  RxBool isIndoLanguage = RxBool(false);
+  RxBool isIndoLanguageToggle = RxBool(false);
+  Rx<AppLocalizations?> appLocalizations = Rx<AppLocalizations?>(AppLocalizations.of(Get.context!));
 
-
-
-  toggleLanguage(){
-    isIndoLanguage.toggle();
-    MainAppController mainAppController = Get.find();
-    mainAppController.setLanguage(isIndoLanguage);
-    log(isIndoLanguage.toString());
-    log(mainAppController.isIndonesianLanguage.toString());
+  @override
+  void onInit() {
+    ever(isIndoLanguageToggle, (_) {
+      appLocalizations.value = AppLocalizations.of(Get.context!);
+    });
+    super.onInit();
   }
 
+  toggleLanguage(){
+    isIndoLanguageToggle.toggle();
+  }
 }
