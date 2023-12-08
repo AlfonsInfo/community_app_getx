@@ -9,7 +9,7 @@ import 'package:jdlcommunity_getx/app/utils/logging_utils.dart';
 import 'package:jdlcommunity_getx/app/utils/utils.dart';
 
 part 'register_controller_input.dart';
-part 'register_controller.validation.dart';
+part 'register_controller_validation.dart';
 
 class RegisterController extends GetxController
     implements GetxControllerAbstract {
@@ -38,11 +38,6 @@ class RegisterController extends GetxController
   RxBool isValidDataRegis = false.obs;
   RxBool isPasswordMatch = true.obs;
   
-  @override
-  void onInit() {  
-    super.onInit();
-  }
-
   @override
   toggleEye(RxBool value) => value.toggle();
 

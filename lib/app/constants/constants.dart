@@ -60,3 +60,7 @@ abstract class InternationalizationConstants{
 
 }
 
+abstract class NumberConstant{
+  static const minimumLengthPw = 5;
+  
+}

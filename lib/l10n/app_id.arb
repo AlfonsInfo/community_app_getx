@@ -19,7 +19,6 @@
     "empty_validate": "{field} tidak boleh kosong",
     "toggle_disable_title": "Pilihan bahasa dinonaktifkan",
     "toggle_disable_message": "validasi inputkan Anda terlebih dahulu",
-    "minimum_length" : "{field} memiliki panjang minimum {angka}" 
-
-
+    "minimum_length" : "{field} harus memiliki panjang minimal {angka} karakter", 
+    "non_match_pw" : "Password dan pengulangan password tidak sesuai"
 }

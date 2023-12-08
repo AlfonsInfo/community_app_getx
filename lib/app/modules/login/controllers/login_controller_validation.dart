@@ -21,8 +21,29 @@ extension LoginControllerValidation on  LoginController{
 
     bool validatePassword() {
     Locale currentLocale = Get.locale!;
-    if (CommonConditions.validateNotEmptyAndNotContainSpace(password.value)) {
-      errorTextPassword.value = Utils.isEnglish(currentLocale)
+    validateLength(currentLocale);
+    validateNotEmpty(currentLocale);
+
+    
+
+    return isValidValueForSubmitted.value;
+  }
+
+  void validateLength(Locale currentLocale) {
+    if (password.value.length < 5) {
+      errorTextPassword.value = Utils.isIndonesian(currentLocale)
+          ? indoLang.minimum_length(5 , indoLang.password )
+          : englishLang.minimum_length(5, englishLang.password );
+      isValidValueForSubmitted.value = false;
+    } else {
+      errorTextPassword.value = null;
+      isValidValueForSubmitted.value = true;
+    }
+  }
+
+  void validateNotEmpty(Locale currentLocale) {
+    if (CommonConditions.isEmptyValue(password.value)) {
+      errorTextPassword.value = Utils.isIndonesian(currentLocale)
           ? indoLang.empty_validate(indoLang.password)
           : englishLang.empty_validate(englishLang.password);
       isValidValueForSubmitted.value = false;
@@ -30,21 +51,6 @@ extension LoginControllerValidation on  LoginController{
       errorTextPassword.value = null;
       isValidValueForSubmitted.value = true;
     }
-
-    if (password.value.length < 5) {
-      errorTextPassword.value = Utils.isIndonesian(currentLocale)
-          ? englishLang.minimum_length(5 , indoLang.password )
-          : englishLang.minimum_length(5, englishLang.password );
-      isValidValueForSubmitted.value = false;
-    } else {
-      errorTextPassword.value = null;
-      isValidValueForSubmitted.value = true;
-    }
-
-    
-
-    return isValidValueForSubmitted.value;
   }
-
   
 }

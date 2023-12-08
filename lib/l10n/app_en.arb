@@ -20,5 +20,7 @@
     "empty_validate": "{field} can not be empty",
     "toggle_disable_title": "Language toggle has been disabled",
     "toggle_disable_message": "Validate your input first",
-    "minimum_length" : "{field} minimum length {angka}" 
+    "minimum_length" : "{field} must be at least {angka} characters long", 
+    "non_match_pw" : "Password and re-entered password do not match"
+
 }
