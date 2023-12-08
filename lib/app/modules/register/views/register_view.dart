@@ -46,42 +46,55 @@ class RegisterView extends GetView<RegisterController> {
       child: SizedBox(
           width: double.infinity,
           child: ElevatedButton(
-              onPressed: () {
-                Get.toNamed(Routes.login);
-              },
+              onPressed: () => controller.onRegisterPressed(),
               child: Text(AppLocalizations.of(context).register))),
     );
   }
 
-  Padding inputFullName(AppLocalizations prefixLocalizations, BuildContext context) {
-    return Padding(
-          padding: WidgetConstant.edgeInsetForm05,
-          child: TextFormField(
-            controller: controller.fullNameController.value,
-            validator: (value) => controller.validateFullName(value ?? "", context),
-            decoration:
-                InputDecoration(labelText: prefixLocalizations.full_name),
+  Widget inputFullName(AppLocalizations prefixLocalizations, BuildContext context) {
+    return Obx(
+      () => Padding(
+            padding: WidgetConstant.edgeInsetForm05,
+            child: TextFormField(
+              onChanged: (value) => controller.fullNameChanged(value),
+              decoration:InputDecoration(
+                labelText: prefixLocalizations.full_name,
+                errorText: controller.errorFullName.value
+                ),
+            ),
           ),
-        );
+    );
   }
 
-  Padding inputUsername(AppLocalizations prefixLocalizations) {
-    return Padding(
-          padding: WidgetConstant.edgeInsetForm05,
-          child: TextFormField(
-            decoration:
-                InputDecoration(labelText: prefixLocalizations.username),
+  Widget inputUsername(AppLocalizations prefixLocalizations) {
+    return Obx(
+      () => Padding(
+            padding: WidgetConstant.edgeInsetForm05,
+            child: TextFormField(
+              onChanged: (value) => controller.usernameChanged(value),
+              decoration:
+                  InputDecoration(
+                    labelText: prefixLocalizations.username,
+                    errorText: controller.errorUsername.value
+                    ),
+            ),
           ),
-        );
+    );
   }
 
-  Padding inputEmail(AppLocalizations prefixLocalizations) {
-    return Padding(
-          padding: WidgetConstant.edgeInsetForm05,
-          child: TextFormField(
-            decoration: InputDecoration(labelText: prefixLocalizations.email),
+  Widget inputEmail(AppLocalizations prefixLocalizations) {
+    return Obx(
+      () =>  Padding(
+            padding: WidgetConstant.edgeInsetForm05,
+            child: TextFormField(
+            onChanged: (value) => controller.emailChanged(value),
+              decoration: InputDecoration(
+                labelText: prefixLocalizations.email,
+                errorText: controller.errorEmail.value
+                ),
+            ),
           ),
-        );
+    );
   }
 
   Obx reInputPassword(AppLocalizations prefixLocalizations) {
@@ -89,7 +102,9 @@ class RegisterView extends GetView<RegisterController> {
           () => Padding(
             padding: WidgetConstant.edgeInsetForm05,
             child: TextFormField(
+              onChanged: (value) => controller.reinputPasswordChanged(value),
               decoration: InputDecoration(
+                errorText: controller.errorReInputPassword.value,
                 labelText: prefixLocalizations.reinput_password,
                 suffixIcon: controller.isEyeToggleHideItem2.value
                     ? WidgetConstant.eyePassword(FontAwesomeIcons.eye,
@@ -108,7 +123,9 @@ class RegisterView extends GetView<RegisterController> {
         padding: WidgetConstant.edgeInsetForm05,
         child: TextFormField(
             obscureText: controller.isEyeToggleHideItem1.value,
+            onChanged: (value) => controller.passwordChanged(value),
             decoration: InputDecoration(
+                errorText: controller.errorPassword.value,
                 labelText: prefixLocalizations.password,
                 suffixIcon: controller.isEyeToggleHideItem1.value
                     ? WidgetConstant.eyePassword(FontAwesomeIcons.eye,

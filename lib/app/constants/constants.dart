@@ -34,20 +34,29 @@ abstract class ImageAssetPaths{
 }
 
 abstract class CommonConditions{
-  static bool emptyValue(String value)
+  static bool isEmptyValue(String value)
   {
     return value.isEmpty;
   }
 
-  static bool dirtyStringWithSpace(String value)
+  static bool isContainsSpace(String value)
   {
-    return value.isEmpty;
+    return value.contains(" ");
   }
 
   
   static bool validateNotEmptyAndNotContainSpace(String value)
   {
-    return emptyValue(value) && dirtyStringWithSpace(value);
+    return isEmptyValue(value) && isContainsSpace(value);
   }
+}
+
+abstract class InternationalizationConstants{
+  static const indonesianLocale = 'id';
+  static const englishLocale = 'en';
+
+  static const indonesian = "INDONESIAN";
+  static const english = "ENGLISH";
+
 }
 
