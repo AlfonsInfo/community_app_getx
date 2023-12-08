@@ -1,9 +1,17 @@
 part of 'register_controller.dart';
 
-extension RegisControllerValidation on RegisterController {
+extension FullNameValidation on RegisterController {
   bool validateFullName() {
-    LoggingUtils.logStartFunction("validateFullName");
+    var activity = "validateFullName";
+    LoggingUtils.logStartFunction(activity);
     Locale currentLocale = Get.locale!;
+
+    validateNotEmptyUsername(currentLocale);
+    
+    return isValidDataRegis.value;
+  }
+
+  void validateNotEmptyUsername(Locale currentLocale) {
     if (CommonConditions.isEmptyValue(inputFullName.value)) {
       errorFullName.value = Utils.isIndonesian(currentLocale)
           ? indoLang.empty_validate(indoLang.full_name)
@@ -13,13 +21,24 @@ extension RegisControllerValidation on RegisterController {
       errorFullName.value = null;
       isValidDataRegis.value = true;
     }
+  }
+}
 
+
+extension UserNameValidation on RegisterController{
+  
+  //* Brain Function
+  bool validateUsername() {
+    var activity = "validateUsername";
+    LoggingUtils.logStartFunction(activity);
+    Locale currentLocale = Get.locale!;
+
+    validateNotEmptyUsername(currentLocale);
+    
     return isValidDataRegis.value;
   }
 
-  bool validateUsername() {
-    LoggingUtils.logStartFunction("validateUsername");
-    Locale currentLocale = Get.locale!;
+  void validateNotEmptyUsername(Locale currentLocale) {
     if (CommonConditions.isEmptyValue(inputUsername.value)) {
       errorUsername.value = Utils.isIndonesian(currentLocale)
           ? indoLang.empty_validate(indoLang.username)
@@ -29,24 +48,83 @@ extension RegisControllerValidation on RegisterController {
       errorUsername.value = null;
       isValidDataRegis.value = true;
     }
+}
+}
+
+
+extension EmailValidation on RegisterController{
+  bool validateEmail() {
+    var activity = "validateEmail";
+    LoggingUtils.logStartFunction(activity);
+
+    Locale currentLocale = Get.locale!;
+
+    validateNotEmptyEmail(currentLocale);
     return isValidDataRegis.value;
   }
 
-  bool validateEmail() {
-    LoggingUtils.logStartFunction("validateEmail");
+
+void validateNotEmptyEmail(Locale currentLocale) {
+  if (CommonConditions.isEmptyValue(inputEmail.value)) {
+    errorEmail.value = Utils.isIndonesian(currentLocale)
+        ? indoLang.empty_validate(indoLang.email)
+        : englishLang.empty_validate(englishLang.email);
+    isValidDataRegis.value = false;
+  } else {
+    errorEmail.value = null;
+    isValidDataRegis.value = true;
+  }
+}
+}
+
+
+extension RegisPassword on RegisterController {
+  bool validatePassword() {
+    LoggingUtils.logStartFunction("validate password");
     Locale currentLocale = Get.locale!;
-    if (CommonConditions.isEmptyValue(inputEmail.value)) {
-      errorEmail.value = Utils.isIndonesian(currentLocale)
-          ? indoLang.empty_validate(indoLang.email)
-          : englishLang.empty_validate(englishLang.email);
-      isValidDataRegis.value = false;
-    } else {
-      errorEmail.value = null;
-      isValidDataRegis.value = true;
+
+    //* check password empty atau tidak
+    validateNotEmptyPassword(currentLocale, errorPassword, inputPassword,
+        indoLang.password, englishLang.password);
+
+    if (errorPassword.value == null) {
+      validatePasswordLength(currentLocale, errorPassword, inputPassword,
+          indoLang.password, englishLang.password);
     }
     return isValidDataRegis.value;
   }
+}
 
+extension RegisReinputPassword on RegisterController {
+  bool validateReinputPassword() {
+    LoggingUtils.logStartFunction("validate reinput password");
+    Locale currentLocale = Get.locale!;
+
+    validateNotEmptyPassword(
+        currentLocale,
+        errorReInputPassword,
+        inputReInputPassword,
+        indoLang.reinput_password,
+        englishLang.reinput_password);
+
+    if (errorReInputPassword.value == null) {
+      validatePasswordLength(
+          currentLocale,
+          errorReInputPassword,
+          inputReInputPassword,
+          indoLang.reinput_password,
+          englishLang.reinput_password);
+    }
+    if (errorReInputPassword.value == null) {
+      validateMatchPassword(currentLocale);
+    }
+    return isValidDataRegis.value;
+  }
+}
+
+
+
+extension PasswordValidationMethod on RegisterController {
   //* Detail Password Validation
   validateNotEmptyPassword(Locale currentLocale, RxnString errorPassword,
       RxString inputPassword, String fieldIndo, String fieldEnglish) {
@@ -85,62 +163,5 @@ extension RegisControllerValidation on RegisterController {
           ? indoLang.non_match_pw
           : englishLang.non_match_pw;
     }
-  }
-}
-
-extension RegisPassword on RegisterController {
-  bool validatePassword() {
-
-    LoggingUtils.logStartFunction("validate password");
-    Locale currentLocale = Get.locale!;
-
-    //* check password empty atau tidak
-    validateNotEmptyPassword(
-      currentLocale, 
-      errorPassword, 
-      inputPassword,
-      indoLang.password, 
-      englishLang.password
-      );
-
-    if (errorPassword.value == null) {
-      validatePasswordLength(
-        currentLocale, 
-        errorPassword, 
-        inputPassword,
-        indoLang.password,
-        englishLang.password
-      );
-    }
-    return isValidDataRegis.value;
-  }
-}
-
-extension RegisReinputPassword on RegisterController {
-  bool validateReinputPassword() {
-    
-    LoggingUtils.logStartFunction("validate reinput password");
-    Locale currentLocale = Get.locale!;
-
-    validateNotEmptyPassword(
-        currentLocale,
-        errorReInputPassword,
-        inputReInputPassword,
-        indoLang.reinput_password,
-        englishLang.reinput_password
-    );
-
-    if (errorReInputPassword.value == null) {
-      validatePasswordLength(
-          currentLocale,
-          errorReInputPassword,
-          inputReInputPassword,
-          indoLang.reinput_password,
-          englishLang.reinput_password);
-    }
-    if (errorReInputPassword.value == null) {
-      validateMatchPassword(currentLocale);
-    }
-    return isValidDataRegis.value;
   }
 }
