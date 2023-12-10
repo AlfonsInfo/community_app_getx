@@ -115,6 +115,7 @@ extension LoginMenuComponent on LoginView{
 extension FormLoginComponent on LoginView{
   Widget loginForm(AppLocalizations prefixLocalizations, BuildContext context) {
     return Form(
+      key: controller.formKey.value,
       child: Column(
         children: [
           loginUsernameInput(prefixLocalizations),
@@ -169,43 +170,44 @@ extension FormLoginComponent on LoginView{
   }
 
   
-Obx loginPasswordInput(AppLocalizations prefixLocalizations) {
-  return Obx(
-          () => Padding(
+Widget loginPasswordInput(AppLocalizations prefixLocalizations) {
+  return  Padding(
             padding: WidgetConstant.edgeInsetForm05,
-            child: TextFormField(
-                onChanged: (value) => controller.passwordChanged(value),
-                onTap: () {
-                  controller.checkEverFocusedOnPassword();
-                },
-                obscureText: controller.isEyeToggleHideItem.value,
-                decoration: InputDecoration(
-                    errorText: controller.errorTextPassword.value,
-                    labelText: prefixLocalizations.password,
-                    suffixIcon: controller.isEyeToggleHideItem.value
-                        ? WidgetConstant.eyePassword(FontAwesomeIcons.eye,
-                            controller, controller.isEyeToggleHideItem)
-                        : WidgetConstant.eyePassword(
-                            FontAwesomeIcons.eyeSlash,
-                            controller,
-                            controller.isEyeToggleHideItem))),
-          ),
-        );
+            child: Obx(
+              () => TextFormField(
+                  onChanged: (value) => controller.passwordChanged(value),
+                  onTap: () {
+                    controller.checkEverFocusedOnPassword();
+                  },
+                  obscureText: controller.isEyeToggleHideItem.value,
+                  decoration: InputDecoration(
+                      errorText: controller.errorTextPassword.value,
+                      labelText: prefixLocalizations.password,
+                      suffixIcon: controller.isEyeToggleHideItem.value
+                          ? WidgetConstant.eyePassword(FontAwesomeIcons.eye,
+                              controller, controller.isEyeToggleHideItem)
+                          : WidgetConstant.eyePassword(
+                              FontAwesomeIcons.eyeSlash,
+                              controller,
+                              controller.isEyeToggleHideItem))),
+            ),
+          );
 }
 
-Obx loginUsernameInput(AppLocalizations prefixLocalizations) {
-  return Obx(
-          () => Padding(
+Widget loginUsernameInput(AppLocalizations prefixLocalizations) {
+  return 
+           Padding(
             padding: WidgetConstant.edgeInsetForm05,
-            child: TextFormField(
-                onChanged: (value) => controller.usernameChanged(value),
-                onTap: () {
-                  controller.checkEverFocusedOnUsername();
-                },
-                decoration: InputDecoration(
-                    labelText: prefixLocalizations.username,
-                    errorText: controller.errorTextUsername.value)),
-          ),
+            child: Obx(
+              () => TextFormField(
+                  onChanged: (value) => controller.usernameChanged(value),
+                  onTap: () {
+                    controller.checkEverFocusedOnUsername();
+                  },
+                  decoration: InputDecoration(
+                      labelText: prefixLocalizations.username,
+                      errorText: controller.errorTextUsername.value)),
+            ),
         );
 }
 

@@ -34,9 +34,10 @@ class SplashView extends GetView<SplashController> {
 
   Widget splashImages() {
     return ClipRRect(
-        borderRadius: BorderRadius.circular(100),
-        child: Image.asset(
-          ImageAssetPaths.splashLogoPath,
-        ));
+      borderRadius: BorderRadius.circular(100),
+      child: Image.asset(
+        ImageAssetPaths.splashLogoPath,
+      ),
+    );
   }
 }

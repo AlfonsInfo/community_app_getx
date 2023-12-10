@@ -29,6 +29,9 @@ const MaterialColor colorBlueLowMaterial =  MaterialColor(
 
 
 abstract class ThemeConstants {
+  static const mediumBlue = Color(0xFF658DE5);
+
+
 
   static ColorScheme colorSchemeLight = ColorScheme(
     brightness: Brightness.light, 

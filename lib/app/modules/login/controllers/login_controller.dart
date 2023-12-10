@@ -29,6 +29,7 @@ class LoginController extends GetxController implements GetxControllerAbstract {
   final englishLang = AppLocalizationsEn();
   final indoLang = AppLocalizationsId();
 
+  final formKey = GlobalKey<FormState>().obs;
 
 
   @override
@@ -54,14 +55,15 @@ class LoginController extends GetxController implements GetxControllerAbstract {
   resetState()
   {
     isEyeToggleHideItem.value = true;
-    username.value = "";
+    username = "".obs;
     errorTextUsername.value = null;
-    password.value = "";
+    password= "".obs;
     errorTextPassword.value = null;
     isEverFocusedUsername.value = false;
     isEverFocusedPassword.value = false;
     isValidValueForSubmitted.value = false;
     countSubmitHit.value = 0;
+    // formKey.value.currentState?.reset();
   }
     
 }
