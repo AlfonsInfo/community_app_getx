@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jdlcommunity_getx/app/constants/widget_constants.dart';
 import 'package:jdlcommunity_getx/app/data/enum_tab.dart';
-import 'package:jdlcommunity_getx/app/routes/app_pages.dart';
 import 'package:jdlcommunity_getx/app/utils/logging_utils.dart';
 
-class HomeController extends GetxController {
+class TabNavigatorController extends GetxController {
   final navIndex = HomeTab.home.index.obs;
   final historyOfTabs = RxList<int>.empty(growable: true);
-  final isFirstLogin = true.obs;
   DateTime? currentBackPressTime;
 
   onSelectedNavIndex(value) {
@@ -18,23 +16,15 @@ class HomeController extends GetxController {
     if (isNotDuplicateEntry) {
       historyOfTabs.add(navIndex.value);
     }
-
     navIndex.value = value;
-
-    LoggingUtils.logDebugValue(historyOfTabs.toString(), "history");
-    LoggingUtils.logDebugValue(historyOfTabs.toString(), "history");
-
-    LoggingUtils.logDebugValue(navIndex.value.toString(), "current index");
   }
 
   onTapNavigation(value) {
     LoggingUtils.logFunction("on Tap Navigation", true);
     onSelectedNavIndex(value);
-    isFirstLogin.value = false;
-    Get.toNamed(Routes.home);
   }
 
-  onWillPopScopeTap(logoutComponent) {
+  onWillPopScopeTap(Function snackBar, Function logoutComponent) {
     LoggingUtils.logFunction("on will pop scope", true);
     DateTime now = DateTime.now();
 
@@ -44,25 +34,24 @@ class HomeController extends GetxController {
       //* handling changing index;
       if (historyOfTabs.isNotEmpty) {
         navIndex.value = historyOfTabs.removeLast();
-        LoggingUtils.logDebugValue(navIndex.value.toString(), "current index");
-        LoggingUtils.logDebugValue(historyOfTabs.toString(), "history tab");
+        currentBackPressTime = null;
         return;
+      }else{
+        snackBar();
+        return Future.value(false);
       }
-      ScaffoldMessenger.of(Get.context!)
-          .showSnackBar(WidgetConstant.basicSnackBar("double tap for logout"));
-      return Future.value(false);
     }
 
     if(historyOfTabs.isEmpty){
-      logoutComponent;
+      logoutComponent();
     }
-
-    // if (isFirstLogin.value == false && historyOfTabs.isEmpty) {
-    //   Get.back();
-    // }
-
   }
 
+
+}
+
+
+extension ArchiveFunction on TabNavigatorController{
   Future<bool> doubleTapForLogout() {
     DateTime now = DateTime.now();
     if (currentBackPressTime == null ||

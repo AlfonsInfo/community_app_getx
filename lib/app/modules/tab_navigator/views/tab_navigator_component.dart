@@ -1,28 +1,26 @@
-part of 'home_view.dart';
+part of 'tab_navigator_view.dart';
 
-extension MenuView on HomeView {
-  
-  List<Widget> get bodyView{
+extension MenuView on TabNavigatorView {
+  List<Widget> get bodyView {
     return [
       Container(
         color: Colors.red,
         alignment: Alignment.center,
-        child: ElevatedButton(
-          onPressed: (){}, child: const Text("PUSH")),
+        child: ElevatedButton(onPressed: () {}, child: const Text("PUSH")),
       ),
       const Text("1"),
       const Text("1")
     ];
   }
-  
 
   BottomNavigationBar homeNavbar() {
     return BottomNavigationBar(
         selectedFontSize: 20,
-        onTap: (indexTab) => controller.onTapNavigation(indexTab),        
+        onTap: (indexTab) => controller.onTapNavigation(indexTab),
         currentIndex: controller.navIndex.value,
         items: homeNavItems);
   }
+
   List<BottomNavigationBarItem> get homeNavItems {
     return [
       menuHomePage(),
@@ -33,30 +31,51 @@ extension MenuView on HomeView {
   }
 }
 
+extension LogoutComponent on TabNavigatorView {
+  logoutComponent() {
+    return Get.defaultDialog(
+      title: AppLocalizations.of(Get.context!).logout_alert_title,
+      middleText: AppLocalizations.of(Get.context!).logout_alert_middle,
+      textConfirm: AppLocalizations.of(Get.context!).logout_alert_confirm,
+      textCancel: AppLocalizations.of(Get.context!).logout_alert_cancel,
+      confirmTextColor: Colors.white,
+      cancelTextColor: Colors.black,
+      buttonColor: Colors.blue, // Warna latar belakang tombol konfirmasi
+      radius: 10.0, // Jari-jari sudut dialog
+      onCancel: () {},
+      onConfirm: () {
+        Get.offAllNamed(Routes.login);
+      },
+    );
+  }
 
+  snackBarInstructionForLogout() {
+    return ScaffoldMessenger.of(Get.context!).showSnackBar(
+        WidgetConstant.basicSnackBar(
+            AppLocalizations.of(Get.context!).double_tap_for_logout));
+  }
+}
 
+extension ArchiveView on TabNavigatorView {
+  BottomNavigationBarItem menuMenu() => const BottomNavigationBarItem(
+      label: "Menu", icon: Icon(Icons.grid_view_rounded));
 
-extension ArchiveView on HomeView {
-
-
-  BottomNavigationBarItem menuMenu() => const BottomNavigationBarItem(label : "Menu", icon : Icon(Icons.grid_view_rounded));
-
-  BottomNavigationBarItem menuHomePage() => const BottomNavigationBarItem(label: "Beranda",icon: Icon(FontAwesomeIcons.house));
-
+  BottomNavigationBarItem menuHomePage() => const BottomNavigationBarItem(
+      label: "Beranda", icon: Icon(FontAwesomeIcons.house));
 
   BottomNavigationBarItem menuChats() {
-  return BottomNavigationBarItem(
-    label: "Chat",
-    icon: IconButton(onPressed: (){}, icon: const Icon(Icons.chat_bubble_outline_sharp)));
+    return BottomNavigationBarItem(
+        label: "Chat",
+        icon: IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.chat_bubble_outline_sharp)));
   }
 
   BottomNavigationBarItem menuProfile() {
-  return const BottomNavigationBarItem(
-      label: "Profil",
-      icon:  Icon(Icons.person));
+    return const BottomNavigationBarItem(
+        label: "Profil", icon: Icon(Icons.person));
   }
 
-  
   GridView gridMenu() {
     return GridView.count(
       primary: false,

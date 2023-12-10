@@ -21,6 +21,10 @@
     "toggle_disable_title": "Language toggle has been disabled",
     "toggle_disable_message": "Validate your input first",
     "minimum_length" : "{field} must be at least {angka} characters long", 
-    "non_match_pw" : "Password and re-entered password do not match"
-
+    "non_match_pw" : "Password and re-entered password do not match",
+    "double_tap_for_logout" : "Double tap the back button for logout",
+    "logout_alert_title" : "Logout Confirmation",
+    "logout_alert_middle" : "Are you sure you want to log out?",
+    "logout_alert_confirm" : "Yes, Logout",
+    "logout_alert_cancel" : "Cancel"
 }

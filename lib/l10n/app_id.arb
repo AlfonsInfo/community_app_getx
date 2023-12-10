@@ -20,5 +20,10 @@
     "toggle_disable_title": "Pilihan bahasa dinonaktifkan",
     "toggle_disable_message": "validasi inputkan Anda terlebih dahulu",
     "minimum_length" : "{field} harus memiliki panjang minimal {angka} karakter", 
-    "non_match_pw" : "Password dan pengulangan password tidak sesuai"
+    "non_match_pw" : "Password dan pengulangan password tidak sesuai",
+    "double_tap_for_logout" : "Tekan tombol kembali 2x untuk keluar",
+    "logout_alert_title": "Konfirmasi Keluar",
+    "logout_alert_middle": "Apa kamu yakin ingin keluar dari aplikasi?",
+    "logout_alert_confirm": "Iya, yakin",
+    "logout_alert_cancel": "Batal"
 }
