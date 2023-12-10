@@ -13,7 +13,7 @@ void main() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   bool isFirstInstall = prefs.getBool(SharedPreferencesKey.isFirstInstall) ?? true;
 
-  runApp(MainApp(isFirstInstall: isFirstInstall,));
+  runApp(MainApp(isFirstInstall: isFirstInstall));
 }
 
 class MainApp extends StatelessWidget {

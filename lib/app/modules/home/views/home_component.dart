@@ -4,9 +4,12 @@ extension MenuView on HomeView {
   
   List<Widget> get bodyView{
     return [
-      WillPopScope(
-        onWillPop: () => controller.onWillPopScopeTap(),
-        child: const Placeholder()),
+      Container(
+        color: Colors.red,
+        alignment: Alignment.center,
+        child: ElevatedButton(
+          onPressed: (){}, child: const Text("PUSH")),
+      ),
       const Text("1"),
       const Text("1")
     ];

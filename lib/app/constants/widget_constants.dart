@@ -13,4 +13,8 @@ abstract class WidgetConstant{
     return IconButton(
         onPressed: () => controller.toggleEye(value), icon: Icon(icon));
   }
+
+  static SnackBar basicSnackBar(text){
+      return SnackBar(content: Text(text), backgroundColor: Colors.black,);
+  }
 }

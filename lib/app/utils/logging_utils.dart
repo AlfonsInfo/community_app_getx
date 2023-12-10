@@ -4,15 +4,15 @@ import 'dart:developer';
 //* For help development progress , not all log imply on prod
 class LoggingUtils{
 
-  static void logStartFunction(String functionName)
+  static void logFunction(String functionName, bool isStart , {String message = "ON START FUNCTION"})
   {
     var current = DateTime.now();
-    log("[Timestamp : ${current.hour}:${current.minute}:${current.second}] ON START FUNCTION $functionName");
-  }
-  static void logEndFunction(String functionName)
-  {
-    var current = DateTime.now();
-    log("[Timestamp : ${current.hour}:${current.minute}:${current.second}] ON END FUNCTION $functionName");
+    if(isStart){
+      log("[Timestamp : ${current.hour}:${current.minute}:${current.second}] $message $functionName");
+    }else{
+      message = "ON END FUNCTION";
+      log("[Timestamp : ${current.hour}:${current.minute}:${current.second}] $message  $functionName");
+    }
   }
 
   static void logDebugValue (String data , String activity)

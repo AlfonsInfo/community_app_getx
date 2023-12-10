@@ -4,7 +4,7 @@ part of 'login_controller.dart';
 extension LoginControllerValidation on  LoginController{
   
   bool validateUsername() {
-    LoggingUtils.logStartFunction("validateUsername");
+    LoggingUtils.logFunction("validateUsername",true);
     Locale currentLocale = Get.locale!;
     if (CommonConditions.isEmptyValue(username.value)) {
       errorTextUsername.value = Utils.isIndonesian(currentLocale)

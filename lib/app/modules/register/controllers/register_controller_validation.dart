@@ -3,7 +3,7 @@ part of 'register_controller.dart';
 extension FullNameValidation on RegisterController {
   bool validateFullName() {
     var activity = "validateFullName";
-    LoggingUtils.logStartFunction(activity);
+    LoggingUtils.logFunction(activity, true);
     Locale currentLocale = Get.locale!;
 
     validateNotEmptyUsername(currentLocale);
@@ -30,7 +30,7 @@ extension UserNameValidation on RegisterController{
   //* Brain Function
   bool validateUsername() {
     var activity = "validateUsername";
-    LoggingUtils.logStartFunction(activity);
+    LoggingUtils.logFunction(activity,true);
     Locale currentLocale = Get.locale!;
 
     validateNotEmptyUsername(currentLocale);
@@ -55,7 +55,7 @@ extension UserNameValidation on RegisterController{
 extension EmailValidation on RegisterController{
   bool validateEmail() {
     var activity = "validateEmail";
-    LoggingUtils.logStartFunction(activity);
+    LoggingUtils.logFunction(activity,true);
 
     Locale currentLocale = Get.locale!;
 
@@ -80,7 +80,7 @@ void validateNotEmptyEmail(Locale currentLocale) {
 
 extension RegisPassword on RegisterController {
   bool validatePassword() {
-    LoggingUtils.logStartFunction("validate password");
+    LoggingUtils.logFunction("validate password",true);
     Locale currentLocale = Get.locale!;
 
     //* check password empty atau tidak
@@ -97,7 +97,7 @@ extension RegisPassword on RegisterController {
 
 extension RegisReinputPassword on RegisterController {
   bool validateReinputPassword() {
-    LoggingUtils.logStartFunction("validate reinput password");
+    LoggingUtils.logFunction("validate reinput password",true);
     Locale currentLocale = Get.locale!;
 
     validateNotEmptyPassword(

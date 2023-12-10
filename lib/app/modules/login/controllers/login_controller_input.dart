@@ -20,7 +20,7 @@ extension LoginControllerInput on  LoginController{
   }
 
   submitFunction() {
-    LoggingUtils.logStartFunction("SubmitFunction");
+    LoggingUtils.logFunction("SubmitFunction",true);
     countSubmitHit++;
     var condition1 = validateUsername();
     var condition2 = validatePassword();
