@@ -3,13 +3,9 @@ part of 'tab_navigator_view.dart';
 extension MenuView on TabNavigatorView {
   List<Widget> get bodyView {
     return [
-      Container(
-        color: Colors.red,
-        alignment: Alignment.center,
-        child: ElevatedButton(onPressed: () {}, child: const Text("PUSH")),
-      ),
-      const Text("1"),
-      const Text("1")
+      const HomePageView(),
+      const MenuPageView(),
+      ProfilePageView()
     ];
   }
 

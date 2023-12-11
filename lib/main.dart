@@ -22,24 +22,26 @@ class MainApp extends StatelessWidget {
   final bool isFirstInstall;
   @override
   Widget build(BuildContext context) {
-    return  GetMaterialApp(
-      title: AppConstant.application,
-      //* ROUTING
-      initialRoute: isFirstInstall ? AppPages.initial : AppPages.login,
-      getPages: AppPages.routes,
-      
-      //* THEME
-      theme: ThemeConstants.lightTheme,
-      darkTheme: ThemeConstants.darkTheme,
-      themeMode: controller.isThemeModeBySistem.value ? ThemeMode.system : ThemeConstants.themeManager.themeMode,
-      debugShowCheckedModeBanner: AppConstant.isDebug,
-      
-      //* INTERNATIONALIZATION
-      locale: const Locale(LocalizationConstant.indoLocale), 
-      fallbackLocale: const Locale(LocalizationConstant.englishLocale) ,
-      localizationsDelegates: LocalizationConstant.localizationsDelegate,
-      supportedLocales:LocalizationConstant.supportedLocale,
-
+    return  Obx(
+      () => GetMaterialApp(
+        title: AppConstant.application,
+        //* ROUTING
+        initialRoute: isFirstInstall ? AppPages.initial : AppPages.login,
+        getPages: AppPages.routes,
+        
+        //* THEME
+        theme: ThemeConstants.lightTheme,
+        darkTheme: ThemeConstants.darkTheme,
+        themeMode: controller.isThemeModeBySistem.value ? ThemeMode.system : controller.defaultThemeMode.value,
+        debugShowCheckedModeBanner: AppConstant.isDebug,
+        
+        //* INTERNATIONALIZATION
+        locale: const Locale(LocalizationConstant.indoLocale), 
+        fallbackLocale: const Locale(LocalizationConstant.englishLocale) ,
+        localizationsDelegates: LocalizationConstant.localizationsDelegate,
+        supportedLocales:LocalizationConstant.supportedLocale,
+    
+      ),
     );
   }
 } 

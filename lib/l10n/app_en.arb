@@ -26,5 +26,13 @@
     "logout_alert_title" : "Logout Confirmation",
     "logout_alert_middle" : "Are you sure you want to log out?",
     "logout_alert_confirm" : "Yes, Logout",
-    "logout_alert_cancel" : "Cancel"
+    "logout_alert_cancel" : "Cancel",
+    "my_profile" : "My Profile",
+    "preferences" : "Your preferences",
+    "preferences_theme" : "Theme",
+    "preferences_language" : "Language",
+    "preferences_save_locally" : "Save Preferences Locally ?",
+    "save" : "Save",
+    "preferences_save_for_account" : "Save Preference For this account ?"
+    
 }

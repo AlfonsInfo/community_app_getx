@@ -8,17 +8,11 @@ class MenuPageView extends GetView<MenuPageController> {
   const MenuPageView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('MenuPageView'),
-        centerTitle: true,
-      ),
-      body: const Center(
+    return  const Center(
         child: Text(
-          'MenuPageView is working',
+          'Menu Page is working',
           style: TextStyle(fontSize: 20),
         ),
-      ),
-    );
+      );
   }
 }

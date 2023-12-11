@@ -25,5 +25,12 @@
     "logout_alert_title": "Konfirmasi Keluar",
     "logout_alert_middle": "Apa kamu yakin ingin keluar dari aplikasi?",
     "logout_alert_confirm": "Iya, yakin",
-    "logout_alert_cancel": "Batal"
+    "logout_alert_cancel": "Batal",
+    "my_profile" : "Profil Saya",
+    "preferences" : "Preferensi Anda",
+    "preferences_theme" : "Tema",
+    "preferences_language" : "Pilihan Bahasa",
+    "preferences_save_locally" : "Simpan preferensi secara lokal ?",
+    "save" : "Simpan",
+    "preferences_save_for_account" : "Simpan preferensi untuk akun ini ?"
 }

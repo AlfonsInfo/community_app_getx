@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jdlcommunity_getx/app/utils/logging_utils.dart';
 
 class ThemeManager with ChangeNotifier{
   ThemeMode _themeMode = ThemeMode.light;
@@ -8,6 +9,7 @@ class ThemeManager with ChangeNotifier{
   
   toggleTheme(ThemeMode themeMode)
   {
+    LoggingUtils.logFunction("Toggle Theme", true);
     _themeMode =  themeMode == ThemeMode.dark ? ThemeMode.dark :ThemeMode.light;
     notifyListeners();
     return _themeMode;

@@ -8,12 +8,31 @@ import 'package:jdlcommunity_getx/l10n/l10n.dart';
 class MainAppController extends GetxController{
   RxBool isThemeModeBySistem = RxBool(true);
   RxBool isIndonesianLanguage = RxBool(true);
+  final defaultThemeMode = ThemeMode.light.obs;
+  
+  // determineThemeMode()
+  // {
+  //  defaultThemeMode.value =  isThemeModeBySistem.value ? ThemeMode.system : ThemeMode.light;
+  //}
 
+  toggleThemeMode()
+  {
+    isThemeModeBySistem.value = false;
+    if(defaultThemeMode.value == ThemeMode.light){
+      defaultThemeMode.value = ThemeMode.dark;
+    }else{
+      defaultThemeMode.value = ThemeMode.light;
+    }
+  }
   void setLanguage(RxBool language){
     isIndonesianLanguage = language;
     isIndonesianLanguage.listen((value) { 
       updateLocale(value);
     });
+  }
+
+  getLanguage (){
+    return isIndonesianLanguage.value;
   }
 
   void updateLocale(value)

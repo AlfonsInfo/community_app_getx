@@ -1,7 +1,7 @@
 part of 'login_view.dart';
 
 
-extension LoginMenuComponent on LoginView{
+extension LoginMenuComponent on LoginView {
   Obx toggleLanguage(
       AppLocalizations prefixLocalizations, BuildContext context) {
     return Obx(

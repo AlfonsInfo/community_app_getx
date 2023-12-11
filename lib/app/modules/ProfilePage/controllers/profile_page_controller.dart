@@ -1,23 +1,11 @@
 import 'package:get/get.dart';
+import 'package:jdlcommunity_getx/main_app_controller.dart';
 
 class ProfilePageController extends GetxController {
-  //TODO: Implement ProfilePageController
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  RxBool isIndoLanguageToggle = Get.find<MainAppController>().isIndonesianLanguage.value.obs;
+
+  toggleLanguage() {
+    isIndoLanguageToggle.toggle();
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }
