@@ -16,6 +16,7 @@ class LoginView extends GetView<LoginController> {
   LoginView({Key? key}) : super(key: key);
   final MainAppController mainAppController = Get.put(MainAppController());
 
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     var prefixLocalizations = AppLocalizations.of(context);

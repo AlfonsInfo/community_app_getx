@@ -27,6 +27,7 @@
     "logout_alert_middle" : "Are you sure you want to log out?",
     "logout_alert_confirm" : "Yes, Logout",
     "logout_alert_cancel" : "Cancel",
+    "logout" : "logout",
     "my_profile" : "My Profile",
     "preferences" : "Your preferences",
     "preferences_theme" : "Theme",

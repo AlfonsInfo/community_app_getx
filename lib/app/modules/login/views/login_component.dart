@@ -115,7 +115,7 @@ extension LoginMenuComponent on LoginView {
 extension FormLoginComponent on LoginView{
   Widget loginForm(AppLocalizations prefixLocalizations, BuildContext context) {
     return Form(
-      key: controller.formKey.value,
+      key: _formKey,
       child: Column(
         children: [
           loginUsernameInput(prefixLocalizations),

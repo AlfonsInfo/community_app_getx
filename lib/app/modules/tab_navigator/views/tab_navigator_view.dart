@@ -5,7 +5,6 @@ import 'package:jdlcommunity_getx/app/constants/widget_constants.dart';
 import 'package:jdlcommunity_getx/app/modules/HomePage/views/home_page_view.dart';
 import 'package:jdlcommunity_getx/app/modules/MenuPage/views/menu_page_view.dart';
 import 'package:jdlcommunity_getx/app/modules/ProfilePage/views/profile_page_view.dart';
-import 'package:jdlcommunity_getx/app/routes/app_pages.dart';
 import '../controllers/tab_navigator_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -17,7 +16,7 @@ class TabNavigatorView extends GetView<TabNavigatorController> {
   Widget build(BuildContext context) {
     return Scaffold(
     body: Obx(() => WillPopScope(
-      onWillPop: () => controller.onWillPopScopeTap(snackBarInstructionForLogout,logoutComponent) ,
+      onWillPop: () => controller.onWillPopScopeTap(snackBarInstructionForLogout,WidgetConstant.logoutComponent) ,
       child: bodyView[controller.navIndex.value])),
     bottomNavigationBar: Obx(() => homeNavbar()),
     );

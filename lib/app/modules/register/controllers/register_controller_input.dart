@@ -44,9 +44,22 @@ extension RegisControllerInput on  RegisterController{
     isValidDataRegis.value =  condition1 && condition2 && condition3 && condition4 && condition5;
 
     if(isValidDataRegis.value){
-      Get.toNamed(Routes.login);
+      regisData = User(
+        inputUsername.value, 
+        inputFullName.value, 
+        inputPassword.value,
+        inputEmail.value
+      );
+      try{
+        isLoading.value = true;
+        userService.regisRequest(regisData);
+      }catch(e){
+        LoggingUtils.logDebugValue(e.toString(), "error");
+      }finally{
+        isLoading.value = false;
+      }
+
     }    
   }
-
 
 }

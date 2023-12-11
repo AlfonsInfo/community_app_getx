@@ -28,22 +28,6 @@ extension MenuView on TabNavigatorView {
 }
 
 extension LogoutComponent on TabNavigatorView {
-  logoutComponent() {
-    return Get.defaultDialog(
-      title: AppLocalizations.of(Get.context!).logout_alert_title,
-      middleText: AppLocalizations.of(Get.context!).logout_alert_middle,
-      textConfirm: AppLocalizations.of(Get.context!).logout_alert_confirm,
-      textCancel: AppLocalizations.of(Get.context!).logout_alert_cancel,
-      confirmTextColor: Colors.white,
-      cancelTextColor: Colors.black,
-      buttonColor: Colors.blue, // Warna latar belakang tombol konfirmasi
-      radius: 10.0, // Jari-jari sudut dialog
-      onCancel: () {},
-      onConfirm: () {
-        Get.offAllNamed(Routes.login);
-      },
-    );
-  }
 
   snackBarInstructionForLogout() {
     return ScaffoldMessenger.of(Get.context!).showSnackBar(

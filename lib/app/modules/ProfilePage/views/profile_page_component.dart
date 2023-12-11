@@ -6,6 +6,15 @@ extension ProfileImageSection on ProfilePageView {
       children: [
         profileCover(isUseCover, context),
         profileImage(),
+        Positioned(
+          bottom: 0,
+          right: 0,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: FloatingActionButton(child: const Icon(FontAwesomeIcons.brush),onPressed: (){
+              showCoversOption();
+            }),
+          ))
       ],
     );
   }
@@ -45,6 +54,14 @@ extension ProfileImageSection on ProfilePageView {
             color: Colors.grey,
           );
   }
+}
+
+void showCoversOption() {
+  Get.bottomSheet(Container(
+    height: 200,
+    color: Colors.white,
+    child: Text("test"),
+  ));
 }
 
 extension MyProfileSection on ProfilePageView {
@@ -118,7 +135,7 @@ extension PreferencesSetting on ProfilePageView {
     return Card(
       child: ExpansionTile(
         title: Text(prefixLocalizations.preferences),
-        leading: const Icon(Icons.person),
+        leading: const Icon(Icons.settings),
         expandedAlignment: Alignment.topLeft,
         expandedCrossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -128,7 +145,10 @@ extension PreferencesSetting on ProfilePageView {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(prefixLocalizations.preferences_theme),
-                Obx(() => IconButton(onPressed: () => mainAppController.toggleThemeMode(), icon: mainAppController.defaultThemeMode.value == ThemeMode.dark ? const Icon(Icons.dark_mode) : const Icon(Icons.light_mode))),
+                Obx(() => Padding(
+                  padding: const EdgeInsets.only(right: 30.0),
+                  child: IconButton(onPressed: () => mainAppController.toggleThemeMode(), icon: mainAppController.defaultThemeMode.value == ThemeMode.dark ? const Icon(Icons.dark_mode) : const Icon(Icons.light_mode)),
+                )),
               ],
             ),
           ),

@@ -9,6 +9,7 @@ class RegisterView extends GetView<RegisterController> {
   const RegisterView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+  // GlobalKey<FormState> formKey = GlobalKey<FormState>();
     var prefixLocalizations = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
@@ -23,6 +24,7 @@ class RegisterView extends GetView<RegisterController> {
 
   Form formRegister(AppLocalizations prefixLocalizations , BuildContext context) {
     return Form(
+      // key: ,
         child: Center(
       child: Column(
         children: [
@@ -45,8 +47,8 @@ class RegisterView extends GetView<RegisterController> {
       child: SizedBox(
           width: double.infinity,
           child: ElevatedButton(
-              onPressed: () => controller.onRegisterPressed(),
-              child: Text(AppLocalizations.of(context).register))),
+              onPressed: controller.isLoading.value ? null :() => controller.onRegisterPressed(),
+              child: controller.isLoading.value ? const LinearProgressIndicator() : Text(AppLocalizations.of(context).register))),
     );
   }
 

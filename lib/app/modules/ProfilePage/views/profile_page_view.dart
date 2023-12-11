@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:jdlcommunity_getx/app/constants/constants.dart';
-import 'package:jdlcommunity_getx/app/constants/theme_constants.dart';
 import 'package:jdlcommunity_getx/app/constants/widget_constants.dart';
 import 'package:jdlcommunity_getx/app/data/user_dummy.dart';
-import 'package:jdlcommunity_getx/app/utils/theme_manager.dart';
 import 'package:jdlcommunity_getx/main_app_controller.dart';
 import '../controllers/profile_page_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -27,12 +26,19 @@ class ProfilePageView extends GetView<ProfilePageController> {
       WidgetConstant.spacingBottomX3,
       myProfileSection(context),
       WidgetConstant.spacingBottomX3,
-      preferences(context)
+      preferences(context),
+      WidgetConstant.spacingBottomX3,
       //* Tombol SignOut
-      // Text("Photo Profile"),
-      // Text("Profile image"),
-      // Text("Profile data"),
-      // Text("Setting"),
+      logoutButton()
     ]);
+  }
+
+  Padding logoutButton() {
+    return Padding(
+      padding: const EdgeInsets.all(30.0),
+      child: ElevatedButton(onPressed: (){
+        WidgetConstant.logoutComponent();
+      }, child: Text(prefixLocalizations.logout)),
+    );
   }
 }

@@ -157,11 +157,15 @@ extension PasswordValidationMethod on RegisterController {
   void validateMatchPassword(Locale currentLocale) {
     if (inputPassword.value != inputReInputPassword.value) {
       isPasswordMatch.value = false;
+    }else{
+      isPasswordMatch.value = true;
     }
-    if (isPasswordMatch.isFalse && errorReInputPassword.value == null) {
+    if (isPasswordMatch.isFalse) {
       errorReInputPassword.value = Utils.isIndonesian(currentLocale)
           ? indoLang.non_match_pw
           : englishLang.non_match_pw;
+    }else{
+      errorReInputPassword.value = null;
     }
   }
 }
