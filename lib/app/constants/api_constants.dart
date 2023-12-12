@@ -5,3 +5,9 @@ abstract class ApiConstant{
   static final dio = Dio();
   static const prefixEndpoint = '$localHost$port/api';
 } 
+
+
+abstract class EndPoint{
+  static const register = '${ApiConstant.prefixEndpoint}/user';
+  static const login = '$register/login';
+}

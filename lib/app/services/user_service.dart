@@ -14,12 +14,12 @@ import 'package:jdlcommunity_getx/app/utils/logging_utils.dart';
 class UserService {
 
   void loginRequest(data,{required Function onStart,required Function onSuccess ,required Function(String) onFailed  }) async{
-    Get.find<LoginController>().isLoading.value = true;
+    onStart();
     dio.Response? response;
 
     try{
         response = await ApiConstant.dio
-        .post("${ApiConstant.prefixEndpoint}/user/login",data: data);
+        .post(EndPoint.login ,data: data);
 
         if(response.statusCode == 200)
         {
@@ -27,7 +27,7 @@ class UserService {
         }
     } on dio.DioException catch(e)
     {
-
+      print("failed message");
       LoggingUtils.logDebugValue(e.response!.statusCode.toString(),LoggingConstant.errorResponse);
       onFailed(AppLocalizations.of(Get.context!).error_detail_server);
     } 
