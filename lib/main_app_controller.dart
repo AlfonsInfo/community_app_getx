@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:jdlcommunity_getx/app/constants/constants.dart';
 import 'package:jdlcommunity_getx/app/services/user_service.dart';
 import 'package:jdlcommunity_getx/app/utils/logging_utils.dart';
@@ -11,7 +12,7 @@ class MainAppController extends GetxController{
   RxBool isIndonesianLanguage = RxBool(true);
   final defaultThemeMode = ThemeMode.light.obs;
   UserService userService = UserService();
-
+  GetStorage box = GetStorage();
 
   toggleThemeMode()
   {

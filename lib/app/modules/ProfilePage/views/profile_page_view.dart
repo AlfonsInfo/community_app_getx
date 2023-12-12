@@ -1,7 +1,4 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:jdlcommunity_getx/app/constants/constants.dart';
@@ -25,7 +22,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
       //* Foto Profil
       profileImageSection(isUseCover, context),
       WidgetConstant.spacingBottomX1,
-      Center(child: Text(DumyData.loginUser.email)),
+      Center(child: Text(controller.userProfile.value?.email ?? "")),
       WidgetConstant.spacingBottomX3,
       myProfileSection(context),
       WidgetConstant.spacingBottomX3,

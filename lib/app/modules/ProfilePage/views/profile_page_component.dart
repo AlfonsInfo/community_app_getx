@@ -44,7 +44,7 @@ extension ProfileImageSection on ProfilePageView {
                 height: MediaQuery.of(context).size.height * 1 / 4,
                 child:  Image(
                   image :  const AssetImage('assets/images/cover/cover_4.jpg'),
-                  loadingBuilder: (context, child, vloadingProgress) {
+                  loadingBuilder: (context, child,loadingProgress) {
                     if(loadingProgress == null){
                       return child;
                     }else{
