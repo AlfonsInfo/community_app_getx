@@ -8,7 +8,7 @@ import 'package:jdlcommunity_getx/app/services/user_service.dart';
 import 'package:jdlcommunity_getx/app/utils/logging_utils.dart';
 import 'package:jdlcommunity_getx/l10n/l10n.dart';
 class MainAppController extends GetxController{
-  RxBool isThemeModeBySistem = RxBool(true);
+  RxBool isThemeModeBySistem = RxBool(false);
   RxBool isIndonesianLanguage = RxBool(true);
   final defaultThemeMode = ThemeMode.light.obs;
   UserService userService = UserService();

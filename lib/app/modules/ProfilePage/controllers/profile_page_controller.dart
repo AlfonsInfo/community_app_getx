@@ -16,4 +16,11 @@ class ProfilePageController extends GetxController with StateMixin<UserProfile>{
   }
 
 
+  @override
+  void onInit() {
+    userService.currentUser();
+    super.onInit();
+  }
+
+
 }

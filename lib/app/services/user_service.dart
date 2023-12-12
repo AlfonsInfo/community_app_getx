@@ -83,9 +83,9 @@ class UserService {
         ));
         if(response.statusCode == 200){
           final userProfile = UserProfile.fromJson(response.data['data']); 
-          profileController.change(userProfile, status: RxStatus.success());
+        //  profileController.change(userProfile, status: RxStatus.success());
         }else{
-          profileController.change(null, status: RxStatus.error("no user found"));
+         // profileController.change(null, status: RxStatus.error("no user found"));
         }
       } on dio.DioException catch(e)
       {
