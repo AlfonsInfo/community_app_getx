@@ -34,6 +34,8 @@
     "preferences_language" : "Language",
     "preferences_save_locally" : "Save Preferences Locally ?",
     "save" : "Save",
-    "preferences_save_for_account" : "Save Preference For this account ?"
+    "preferences_save_for_account" : "Save Preference For this account ?",
+    "error" : "Error",
+    "error_detail_server" : "Oops, Something went wrong."
     
 }

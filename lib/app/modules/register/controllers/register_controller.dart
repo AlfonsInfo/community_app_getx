@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:jdlcommunity_getx/app/constants/constants.dart';
@@ -5,10 +6,10 @@ import 'package:jdlcommunity_getx/app/data/model/user.dart';
 import 'package:jdlcommunity_getx/app/modules/abstract/controller_abstract.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_en.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_id.dart';
-import 'package:jdlcommunity_getx/app/routes/app_pages.dart';
 import 'package:jdlcommunity_getx/app/services/user_service.dart';
 import 'package:jdlcommunity_getx/app/utils/logging_utils.dart';
 import 'package:jdlcommunity_getx/app/utils/utils.dart';
+
 
 part 'register_controller_input.dart';
 part 'register_controller_validation.dart';

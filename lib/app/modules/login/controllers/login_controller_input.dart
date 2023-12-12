@@ -28,9 +28,37 @@ extension LoginControllerInput on  LoginController{
 
     if(isValidValueForSubmitted.value)
     {
+      UserService userService =  Get.find<MainAppController>().userService;
+    
+      Map<String,dynamic> loginRequest = 
+      {
+        "username" : username.value,
+        "password" : password.value
+      };
+
+      userService.loginRequest(loginRequest,onStart:  onStart, onSuccess:  onSuccess,onFailed:  onFailed);
       resetState();
-      Get.toNamed(Routes.home);
-    }
+
+    } 
+  }
+
+  onStart()
+  {
+    isLoading.value = true;
+  }
+
+  onSuccess(message){
+    ScaffoldMessenger.of(Get.context!).showSnackBar(WidgetConstant.basicSnackBar(message));
+    //* Stop Loading
+    isLoading.value = false;
+  }
+
+  onFailed(message)
+  {    //* Show Notif
+    ScaffoldMessenger.of(Get.context!).showSnackBar(WidgetConstant.basicSnackBar(message));
+    //* Stop Loading
+    isLoading.value = false;
+
   }
 
   

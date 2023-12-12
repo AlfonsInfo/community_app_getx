@@ -64,3 +64,11 @@ abstract class NumberConstant{
   static const minimumLengthPw = 5;
   
 }
+
+
+abstract class LoggingConstant{
+  static const successResponse = "SUCCESS RESPONSE";
+  static const errorResponse = "ERROR RESPONSE";
+  static const requestError = "REQUEST ERROR";
+
+}

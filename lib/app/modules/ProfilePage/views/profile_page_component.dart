@@ -60,7 +60,7 @@ void showCoversOption() {
   Get.bottomSheet(Container(
     height: 200,
     color: Colors.white,
-    child: Text("test"),
+    child: const Text("test"),
   ));
 }
 

@@ -3,17 +3,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jdlcommunity_getx/app/constants/constants.dart';
+import 'package:jdlcommunity_getx/app/services/user_service.dart';
 import 'package:jdlcommunity_getx/app/utils/logging_utils.dart';
 import 'package:jdlcommunity_getx/l10n/l10n.dart';
 class MainAppController extends GetxController{
   RxBool isThemeModeBySistem = RxBool(true);
   RxBool isIndonesianLanguage = RxBool(true);
   final defaultThemeMode = ThemeMode.light.obs;
-  
-  // determineThemeMode()
-  // {
-  //  defaultThemeMode.value =  isThemeModeBySistem.value ? ThemeMode.system : ThemeMode.light;
-  //}
+  UserService userService = UserService();
+
 
   toggleThemeMode()
   {

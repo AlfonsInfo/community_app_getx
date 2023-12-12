@@ -50,16 +50,7 @@ extension RegisControllerInput on  RegisterController{
         inputPassword.value,
         inputEmail.value
       );
-      try{
-        isLoading.value = true;
-        userService.regisRequest(regisData);
-      }catch(e){
-        LoggingUtils.logDebugValue(e.toString(), "error");
-      }finally{
-        isLoading.value = false;
-      }
-
+      userService.regisRequest(regisData);
     }    
   }
-
 }

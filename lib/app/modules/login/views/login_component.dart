@@ -163,8 +163,11 @@ extension FormLoginComponent on LoginView{
       padding: WidgetConstant.edgeInsetForm,
       child: SizedBox(
           width: double.infinity,
-          child: ElevatedButton(
-              onPressed: ()  => controller.submitFunction(),
+          child: controller.isLoading.value ? const CircularProgressIndicator(): ElevatedButton(
+              onPressed: (){
+                controller.submitFunction();
+                _formKey.currentState?.reset();
+              },
               child: Text(AppLocalizations.of(context).login))),
     );
   }

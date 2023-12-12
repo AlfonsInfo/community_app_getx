@@ -46,9 +46,11 @@ class RegisterView extends GetView<RegisterController> {
       padding: WidgetConstant.edgeInsetForm,
       child: SizedBox(
           width: double.infinity,
-          child: ElevatedButton(
-              onPressed: controller.isLoading.value ? null :() => controller.onRegisterPressed(),
-              child: controller.isLoading.value ? const LinearProgressIndicator() : Text(AppLocalizations.of(context).register))),
+          child: Obx(
+            () => ElevatedButton(
+                onPressed: controller.isLoading.value ? null :() => controller.onRegisterPressed(),
+                child: controller.isLoading.value ? const CircularProgressIndicator() : Text(AppLocalizations.of(context).register)),
+          )),
     );
   }
 

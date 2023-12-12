@@ -33,5 +33,8 @@
     "preferences_language" : "Pilihan Bahasa",
     "preferences_save_locally" : "Simpan preferensi secara lokal ?",
     "save" : "Simpan",
-    "preferences_save_for_account" : "Simpan preferensi untuk akun ini ?"
+    "preferences_save_for_account" : "Simpan preferensi untuk akun ini ?",
+    "error" : "Error",
+    "error_detail_server" : "Oops, Ada suatu kesalahan."
+
 }
