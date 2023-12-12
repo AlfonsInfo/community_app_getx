@@ -36,13 +36,13 @@ extension LoginControllerInput on  LoginController{
         "password" : password.value
       };
 
-      userService.loginRequest(loginRequest,onStart:  onStart, onSuccess:  onSuccess,onFailed:  onFailed);
+      userService.loginRequest(loginRequest);
       resetState();
 
     } 
   }
 
-  onStart()
+  onStartLogin()
   {
     isLoading.value = true;
   }
