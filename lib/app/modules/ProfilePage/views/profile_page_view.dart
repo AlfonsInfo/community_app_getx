@@ -22,7 +22,10 @@ class ProfilePageView extends GetView<ProfilePageController> {
       //* Foto Profil
       profileImageSection(isUseCover, context),
       WidgetConstant.spacingBottomX1,
-      Center(child: Text(controller.userProfile.value?.email ?? "")),
+      controller.obx((state) => 
+      Text(state!.email ?? ""),
+      onLoading: Skeletonizer(child: this,)
+      ),
       WidgetConstant.spacingBottomX3,
       myProfileSection(context),
       WidgetConstant.spacingBottomX3,

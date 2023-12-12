@@ -8,6 +8,7 @@ import 'package:jdlcommunity_getx/app/constants/api_constants.dart';
 import 'package:jdlcommunity_getx/app/constants/constants.dart';
 import 'package:jdlcommunity_getx/app/constants/widget_constants.dart';
 import 'package:jdlcommunity_getx/app/data/model/user_profile.dart';
+import 'package:jdlcommunity_getx/app/modules/ProfilePage/controllers/profile_page_controller.dart';
 import 'package:jdlcommunity_getx/app/modules/login/controllers/login_controller.dart';
 import 'package:jdlcommunity_getx/app/modules/register/controllers/register_controller.dart';
 import 'package:jdlcommunity_getx/app/utils/logging_utils.dart';
@@ -71,24 +72,27 @@ class UserService {
    
   }
 
- Future<UserProfile?> currentUser() async{
+ void currentUser() async{
       dio.Response? response;
+      final profileController = Get.find<ProfilePageController>();
       try{
         response = await ApiConstant.dio.get(EndPoint.current, options: dio.Options(
           headers: {
             'authorization' : Get.find<MainAppController>().box.read(ApiConstant.sessionToken)
           }
         ));
-        print(response.data['data']);
-        return UserProfile.fromJson(response.data['data']);
+        if(response.statusCode == 200){
+          final userProfile = UserProfile.fromJson(response.data['data']); 
+          profileController.change(userProfile, status: RxStatus.success());
+        }else{
+          profileController.change(null, status: RxStatus.error("no user found"));
+        }
       } on dio.DioException catch(e)
       {
         if(e.response != null)
         {
           LoggingUtils.logDebugValue(e.response!.statusCode.toString(), "activity");
         }
-        return null;
       }
-
     }
 }

@@ -1,9 +1,9 @@
 class UserProfile{
-  final String username;
-  final String fullname;
-  final String? email;
+  String? username;
+  String? fullname;
+  String? email;
 
-  UserProfile({required this.fullname, required this.username, required this.email});
+  UserProfile({this.fullname, this.username, this.email});
   
   UserProfile.fromJson(Map<String, dynamic> json)
     : username = json['username'] as String,
