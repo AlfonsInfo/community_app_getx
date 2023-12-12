@@ -1,4 +1,7 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:jdlcommunity_getx/app/constants/constants.dart';
@@ -7,7 +10,7 @@ import 'package:jdlcommunity_getx/app/data/user_dummy.dart';
 import 'package:jdlcommunity_getx/main_app_controller.dart';
 import '../controllers/profile_page_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
+import 'package:skeletonizer/skeletonizer.dart';
 part 'profile_page_component.dart';
 
 class ProfilePageView extends GetView<ProfilePageController> {

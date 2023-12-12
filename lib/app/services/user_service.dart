@@ -30,22 +30,26 @@ class UserService {
     } on dio.DioException catch(e)
     {
 
-      Get.find<LoginController>().onFailed(AppLocalizations.of(Get.context!).error_detail_server);
+      loginController.onFailed(AppLocalizations.of(Get.context!).error_detail_server);
       LoggingUtils.logDebugValue(e.response!.statusCode.toString(),LoggingConstant.errorResponse);
+      loginController.resetState();
+      loginController.resetFormField();
     } 
   }
 
   void regisRequest(data) async {
-    Get.find<RegisterController>().isLoading.value = true;
+    LoggingUtils.logFunction("regisRequest", true);
+    
+    final regisController = Get.find<RegisterController>();
+    regisController.isLoading.value = true;
     dio.Response? response;
-    try {
-      response = await ApiConstant.dio
-          .post('${ApiConstant.prefixEndpoint}/user', data: jsonEncode(data));
 
-      successResponse(AppLocalizations.of(Get.context!).save);
+    try {
+      response = await ApiConstant.dio.post(EndPoint.register, data: jsonEncode(data));
+      regisController.successResponse(AppLocalizations.of(Get.context!).save);
 
       ScaffoldMessenger.of(Get.context!)
-        .showSnackBar(WidgetConstant.basicSnackBar("Login Success"));
+        .showSnackBar(WidgetConstant.basicSnackBar("Regis Success"));
 
       LoggingUtils.logDebugValue(
           response.data.toString(), LoggingConstant.successResponse);
@@ -54,34 +58,14 @@ class UserService {
         //* a long progress processing error message;
         String? errorMessage;
 
-        errorResponse(AppLocalizations.of(Get.context!).error,
+        regisController.errorResponse(AppLocalizations.of(Get.context!).error,
             errorMessage ?? AppLocalizations.of(Get.context!).error_detail_server);
       } else {
-        errorResponse(AppLocalizations.of(Get.context!).error,
+        regisController.errorResponse(AppLocalizations.of(Get.context!).error,
             AppLocalizations.of(Get.context!).error_detail_server);
-
-        LoggingUtils.logDebugValue(
-            (e.response == null).toString(), LoggingConstant.requestError);
       }
     }
   }
 
 
-}
-
-
-extension UserServiceHelper on UserService{
-  void errorResponse(String errorTitle, String errorMessage) {
-    Get.defaultDialog(title: errorTitle, middleText: errorMessage);
-    Get.find<RegisterController>().isLoading.value = false;
-  }
-
-  void successResponse(String message) {
-    //* Show Notif
-    ScaffoldMessenger.of(Get.context!)
-        .showSnackBar(WidgetConstant.basicSnackBar(message));
-
-    //* Stop Loading
-    Get.find<RegisterController>().isLoading.value = false;
-  }
 }

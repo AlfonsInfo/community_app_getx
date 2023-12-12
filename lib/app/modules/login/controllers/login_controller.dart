@@ -6,6 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations_id.dart';
 import 'package:jdlcommunity_getx/app/constants/constants.dart';
 import 'package:jdlcommunity_getx/app/constants/widget_constants.dart';
 import 'package:jdlcommunity_getx/app/modules/abstract/controller_abstract.dart';
+import 'package:jdlcommunity_getx/app/routes/app_pages.dart';
 import 'package:jdlcommunity_getx/app/services/user_service.dart';
 import 'package:jdlcommunity_getx/app/utils/logging_utils.dart';
 import 'package:jdlcommunity_getx/app/utils/utils.dart';
@@ -24,6 +25,10 @@ class LoginController extends GetxController implements GetxControllerAbstract {
   RxnString errorTextUsername = RxnString();
   RxnString errorTextPassword = RxnString();
 
+
+  final  usernameController = TextEditingController();
+  final  passwordController = TextEditingController();
+
   RxBool isEverFocusedUsername = RxBool(false);
   RxBool isEverFocusedPassword = RxBool(false);
   RxBool isValidValueForSubmitted = RxBool(false);
@@ -32,6 +37,7 @@ class LoginController extends GetxController implements GetxControllerAbstract {
   final englishLang = AppLocalizationsEn();
   final indoLang = AppLocalizationsId();
   final isLoading = false.obs;
+  final formKey = GlobalKey<FormState>();
 
 
   @override
@@ -57,13 +63,19 @@ class LoginController extends GetxController implements GetxControllerAbstract {
   resetState()
   {
     isEyeToggleHideItem.value = true;
-    username = "".obs;
+    username.value = "";
     errorTextUsername.value = null;
-    password= "".obs;
+    password.value= "";
     errorTextPassword.value = null;
     isEverFocusedUsername.value = false;
     isEverFocusedPassword.value = false;
     isValidValueForSubmitted.value = false;
+  }
+
+  resetFormField()
+  {
+    usernameController.text = "";
+    passwordController.text = "";
   }
     
 }

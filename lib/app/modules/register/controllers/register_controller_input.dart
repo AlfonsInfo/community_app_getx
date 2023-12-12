@@ -53,4 +53,19 @@ extension RegisControllerInput on  RegisterController{
       userService.regisRequest(regisData);
     }    
   }
+
+
+  void errorResponse(String errorTitle, String errorMessage) {
+    Get.defaultDialog(title: errorTitle, middleText: errorMessage);
+    isLoading.value = false;
+  }
+
+  void successResponse(String message) {
+    //* Show Notif
+    ScaffoldMessenger.of(Get.context!)
+        .showSnackBar(WidgetConstant.basicSnackBar(message));
+
+    //* Stop Loading
+    Get.find<RegisterController>().isLoading.value = false;
+  }
 }

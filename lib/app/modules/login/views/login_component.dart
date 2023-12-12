@@ -115,7 +115,7 @@ extension LoginMenuComponent on LoginView {
 extension FormLoginComponent on LoginView{
   Widget loginForm(AppLocalizations prefixLocalizations, BuildContext context) {
     return Form(
-      key: _formKey,
+      key: controller.formKey, //_formKey,
       child: Column(
         children: [
           loginUsernameInput(prefixLocalizations),
@@ -161,14 +161,16 @@ extension FormLoginComponent on LoginView{
   Widget loginButton(context) {
     return Padding(
       padding: WidgetConstant.edgeInsetForm,
-      child: SizedBox(
-          width: double.infinity,
-          child: controller.isLoading.value ? const CircularProgressIndicator(): ElevatedButton(
-              onPressed: (){
-                controller.submitFunction();
-                _formKey.currentState?.reset();
-              },
-              child: Text(AppLocalizations.of(context).login))),
+      child: Obx(
+        () => SizedBox(
+            width: double.infinity,
+            child:  ElevatedButton(
+                onPressed: controller.isLoading.value ? null :  (){
+                  controller.submitFunction();
+                  //_formKey.currentState?.reset();
+                },
+                child: controller.isLoading.value ? onLoadingButton() : Text(AppLocalizations.of(context).login))),
+      ),
     );
   }
 
@@ -182,6 +184,7 @@ Widget loginPasswordInput(AppLocalizations prefixLocalizations) {
                   onTap: () {
                     controller.checkEverFocusedOnPassword();
                   },
+                  controller: controller.passwordController,
                   obscureText: controller.isEyeToggleHideItem.value,
                   decoration: InputDecoration(
                       errorText: controller.errorTextPassword.value,
@@ -202,16 +205,27 @@ Widget loginUsernameInput(AppLocalizations prefixLocalizations) {
            Padding(
             padding: WidgetConstant.edgeInsetForm05,
             child: Obx(
-              () => TextFormField(
+              (){
+                LoggingUtils.logFunction("Rebuild",true);
+                return TextFormField(
+                  controller : controller.usernameController,
                   onChanged: (value) => controller.usernameChanged(value),
                   onTap: () {
                     controller.checkEverFocusedOnUsername();
                   },
                   decoration: InputDecoration(
                       labelText: prefixLocalizations.username,
-                      errorText: controller.errorTextUsername.value)),
+                      errorText: controller.errorTextUsername.value));
+                }
             ),
         );
 }
 
+}
+
+SizedBox onLoadingButton() {
+  return const SizedBox(
+                width: 10,
+                height :10,
+                child:  CircularProgressIndicator( ));
 }

@@ -42,18 +42,29 @@ extension ProfileImageSection on ProfilePageView {
             child: SizedBox(
                 width: double.infinity,
                 height: MediaQuery.of(context).size.height * 1 / 4,
-                child: Image.asset(
-                  'assets/images/cover/cover_4.jpg',
+                child:  Image(
+                  image :  const AssetImage('assets/images/cover/cover_4.jpg'),
+                  loadingBuilder: (context, child, vloadingProgress) {
+                    if(loadingProgress == null){
+                      return child;
+                    }else{
+                      return Skeletonizer(child: placeHolderCovers(context));
+                    }
+                  },
                   fit: BoxFit.fill,
                   // ignore: dead_code
                 )),
           )
-        : Container(
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height * 1 / 4,
-            color: Colors.grey,
-          );
+        : placeHolderCovers(context);
   }
+}
+
+Container placeHolderCovers(BuildContext context) {
+  return Container(
+          width: double.infinity,
+          height: MediaQuery.of(context).size.height * 1 / 4,
+          color: Colors.grey,
+        );
 }
 
 void showCoversOption() {

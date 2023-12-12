@@ -37,9 +37,9 @@ extension LoginControllerInput on  LoginController{
       };
 
       userService.loginRequest(loginRequest);
-      resetState();
-
     } 
+    
+    
   }
 
   onStartLogin()
@@ -49,14 +49,13 @@ extension LoginControllerInput on  LoginController{
 
   onSuccess(message){
     ScaffoldMessenger.of(Get.context!).showSnackBar(WidgetConstant.basicSnackBar(message));
-    //* Stop Loading
     isLoading.value = false;
+    Get.offNamed(Routes.home);    
   }
 
   onFailed(message)
   {    //* Show Notif
     ScaffoldMessenger.of(Get.context!).showSnackBar(WidgetConstant.basicSnackBar(message));
-    //* Stop Loading
     isLoading.value = false;
 
   }
