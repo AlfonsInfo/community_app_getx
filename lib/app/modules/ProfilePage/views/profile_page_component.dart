@@ -6,15 +6,7 @@ extension ProfileImageSection on ProfilePageView {
       children: [
         profileCover(isUseCover, context),
         profileImage(),
-        Positioned(
-          bottom: 0,
-          right: 0,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: FloatingActionButton(child: const Icon(FontAwesomeIcons.brush),onPressed: (){
-              showCoversOption();
-            }),
-          ))
+        changeCoversButton()
       ],
     );
   }
@@ -59,6 +51,18 @@ extension ProfileImageSection on ProfilePageView {
   }
 }
 
+Positioned changeCoversButton() {
+  return Positioned(
+        bottom: 0,
+        right: 0,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: FloatingActionButton(child: const Icon(FontAwesomeIcons.brush),onPressed: (){
+            showCoversOption();
+          }),
+        ));
+}
+
 Container placeHolderCovers(BuildContext context) {
   return Container(
           width: double.infinity,
@@ -84,21 +88,26 @@ extension MyProfileSection on ProfilePageView {
         expandedAlignment: Alignment.topLeft,
         expandedCrossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Center(
-            child: Table(
-              columnWidths: const {
-                0: FlexColumnWidth(3),
-                1: FlexColumnWidth(1),
-                2: FlexColumnWidth(4),
-              },
-              children: [
-                profileDetailRow(AppLocalizations.of(Get.context!).full_name,
-                    DumyData.loginUser.fullName),
-                profileDetailRow(AppLocalizations.of(Get.context!).username,
-                    DumyData.loginUser.username),
-                profileDetailRow(AppLocalizations.of(Get.context!).email,
-                    DumyData.loginUser.email),
-              ],
+          Obx(
+            () => Skeletonizer(
+              enabled: controller.isLoadingProfileData.isTrue,
+              child: Center(
+                child: Table(
+                  columnWidths: const {
+                    0: FlexColumnWidth(3),
+                    1: FlexColumnWidth(1),
+                    2: FlexColumnWidth(4),
+                  },
+                  children: [
+                    profileDetailRow(AppLocalizations.of(Get.context!).full_name,
+                        controller.userProfile.fullname),
+                    profileDetailRow(AppLocalizations.of(Get.context!).username,
+                        controller.userProfile.username),
+                    profileDetailRow(AppLocalizations.of(Get.context!).email,
+                        controller.userProfile.email),
+                  ],
+                ),
+              ),
             ),
           ),
           Row(

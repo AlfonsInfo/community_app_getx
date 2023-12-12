@@ -29,6 +29,7 @@ abstract class WidgetConstant {
     return SnackBar(
       content: Text(text),
       backgroundColor: Colors.black,
+      duration: const Duration(seconds: 2 ),
     );
   }
 

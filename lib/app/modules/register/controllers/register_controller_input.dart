@@ -72,9 +72,9 @@ extension RegisControllerInput on  RegisterController{
       isLoading.value = true;
       var response = await userService.regisRequest(regisData);
       if(response == null){
-        errorResponse("error", "error Message");
+        errorResponse(AppLocalizations.of(Get.context!).error, AppLocalizations.of(Get.context!).error_detail_server);
       }else{
-        successResponse("Berhasil Daftar"); //* status code 201
+        successResponse(AppLocalizations.of(Get.context!).register_success); //* status code 201
       }
     }catch(e){
       LoggingUtils.logDebugValue(e.toString(), " regis request handling");

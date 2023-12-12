@@ -7,7 +7,7 @@ import 'package:jdlcommunity_getx/app/data/model/user_profile.dart';
 import 'package:jdlcommunity_getx/app/utils/logging_utils.dart';
 import 'package:jdlcommunity_getx/main_app_controller.dart';
 
-class UserService extends GetxService {
+class UserService  {
   loginRequest(data) async {
     dio.Response? response;
     try {

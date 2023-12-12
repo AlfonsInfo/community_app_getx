@@ -3,8 +3,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:jdlcommunity_getx/app/constants/constants.dart';
 import 'package:jdlcommunity_getx/app/constants/widget_constants.dart';
-import 'package:jdlcommunity_getx/app/data/user_dummy.dart';
-import 'package:jdlcommunity_getx/app/utils/logging_utils.dart';
 import 'package:jdlcommunity_getx/main_app_controller.dart';
 import '../controllers/profile_page_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -23,10 +21,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
       //* Foto Profil
       profileImageSection(isUseCover, context),
       WidgetConstant.spacingBottomX1,
-      Obx(() => Skeletonizer(
-        enabled: controller.isLoadingProfileData.isTrue,
-        containersColor: Colors.grey,
-        child: Center(child: Text(controller.userProfile.email ?? "email@example.com")))),
+      emailBottomProfile(),
       WidgetConstant.spacingBottomX3,
       myProfileSection(context),
       WidgetConstant.spacingBottomX3,
@@ -35,6 +30,13 @@ class ProfilePageView extends GetView<ProfilePageController> {
       //* Tombol SignOut
       logoutButton()
     ]);
+  }
+
+  Obx emailBottomProfile() {
+    return Obx(() => Skeletonizer(
+      enabled: controller.isLoadingProfileData.isTrue,
+      containersColor: Colors.grey,
+      child: Center(child: Text(controller.userProfile.email ?? "email@example.com"))));
   }
 
   Padding logoutButton() {

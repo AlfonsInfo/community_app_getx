@@ -5,6 +5,7 @@ import 'package:jdlcommunity_getx/app/constants/widget_constants.dart';
 import 'package:jdlcommunity_getx/app/data/model/user.dart';
 import 'package:jdlcommunity_getx/app/modules/abstract/controller_abstract.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_en.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_id.dart';
 import 'package:jdlcommunity_getx/app/services/user_service.dart';
 import 'package:jdlcommunity_getx/app/utils/logging_utils.dart';

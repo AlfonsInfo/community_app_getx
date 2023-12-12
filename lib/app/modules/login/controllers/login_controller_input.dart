@@ -59,10 +59,10 @@ extension LoginControllerInput on  LoginController{
     try{
       isLoading.value = true;
       var response = await userService.loginRequest(loginRequest);
-      onSuccess("Berhasil Login", response);
+      onSuccess(AppLocalizations.of(Get.context!).login_success(response['username'] ?? "members"), response);
     }catch(e)
     {
-      onFailed("Gagal Login");
+      onFailed(AppLocalizations.of(Get.context!).login_failed);
     }
   }
   
