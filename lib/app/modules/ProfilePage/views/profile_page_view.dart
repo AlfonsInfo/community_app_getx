@@ -23,12 +23,10 @@ class ProfilePageView extends GetView<ProfilePageController> {
       //* Foto Profil
       profileImageSection(isUseCover, context),
       WidgetConstant.spacingBottomX1,
-      controller.obx((state) {
-          print(state);
-          return Text("test");
-      },
-      onLoading: Text("error")
-      ),
+      Obx(() => Skeletonizer(
+        enabled: controller.isLoadingProfileData.isTrue,
+        containersColor: Colors.grey,
+        child: Center(child: Text(controller.userProfile.email ?? "email@example.com")))),
       WidgetConstant.spacingBottomX3,
       myProfileSection(context),
       WidgetConstant.spacingBottomX3,

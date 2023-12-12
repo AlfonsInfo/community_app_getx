@@ -50,7 +50,7 @@ extension RegisControllerInput on  RegisterController{
         inputPassword.value,
         inputEmail.value
       );
-      userService.regisRequest(regisData);
+      regisRequestHandling();
     }    
   }
 
@@ -65,7 +65,20 @@ extension RegisControllerInput on  RegisterController{
     ScaffoldMessenger.of(Get.context!)
         .showSnackBar(WidgetConstant.basicSnackBar(message));
 
-    //* Stop Loading
-    Get.find<RegisterController>().isLoading.value = false;
+    isLoading.value = false;
   }
+  regisRequestHandling() async{
+    try{
+      isLoading.value = true;
+      var response = await userService.regisRequest(regisData);
+      if(response == null){
+        errorResponse("error", "error Message");
+      }else{
+        successResponse("Berhasil Daftar"); //* status code 201
+      }
+    }catch(e){
+      LoggingUtils.logDebugValue(e.toString(), " regis request handling");
+    }
+
+  } 
 }

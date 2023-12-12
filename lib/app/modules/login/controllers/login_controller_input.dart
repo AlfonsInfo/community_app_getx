@@ -36,31 +36,35 @@ extension LoginControllerInput on  LoginController{
         "password" : password.value
       };
 
-      userService.loginRequest(loginRequest);
+      loginRequestHandling(userService, loginRequest);
     } 
     
     
   }
 
-  onStartLogin()
-  {
-    isLoading.value = true;
-  }
-
   onSuccess(message,data){
+    Get.find<MainAppController>().box.write(ApiConstant.sessionToken, data['session'] );
     ScaffoldMessenger.of(Get.context!).showSnackBar(WidgetConstant.basicSnackBar(message));
-    isLoading.value = false;
-    Get.find<MainAppController>().box.write(ApiConstant.sessionToken, data['data']['session'] );
     Get.offNamed(Routes.home);    
+    isLoading.value = false;
   }
 
   onFailed(message)
-  {    //* Show Notif
+  {   
     ScaffoldMessenger.of(Get.context!).showSnackBar(WidgetConstant.basicSnackBar(message));
     isLoading.value = false;
-
   }
 
+  void loginRequestHandling(UserService userService, Map<String, dynamic> loginRequest) async {
+    try{
+      isLoading.value = true;
+      var response = await userService.loginRequest(loginRequest);
+      onSuccess("Berhasil Login", response);
+    }catch(e)
+    {
+      onFailed("Gagal Login");
+    }
+  }
   
 
 }

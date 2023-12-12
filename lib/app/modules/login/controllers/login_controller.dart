@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_en.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_id.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:jdlcommunity_getx/app/constants/api_constants.dart';
 import 'package:jdlcommunity_getx/app/constants/constants.dart';
 import 'package:jdlcommunity_getx/app/constants/widget_constants.dart';
