@@ -10,9 +10,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:jdlcommunity_getx/app/routes/app_pages.dart';
 import 'package:jdlcommunity_getx/app/utils/logging_utils.dart';
 import 'package:jdlcommunity_getx/main_app_controller.dart';
-
+import 'package:responsive_sizer/responsive_sizer.dart';
 part 'login_component.dart';
-
 class LoginView extends GetView<LoginController> {
   LoginView({Key? key}) : super(key: key);
   final MainAppController mainAppController = Get.put(MainAppController());
@@ -26,12 +25,12 @@ class LoginView extends GetView<LoginController> {
         body: ListView(
           children: [
             const SlideShowActivityImages(),
-            WidgetConstant.spacingBottomX2,
-            toggleLanguage(prefixLocalizations, context),
-            WidgetConstant.spacingBottomX1,
+            WidgetConstant.spacing2percent,
+            toggleLanguage(prefixLocalizations,context),
+            WidgetConstant.spacingCustomable(3.h),
             loginForm(prefixLocalizations, context),
             registerButton(prefixLocalizations),
-            bottomMenuView(prefixLocalizations)
+            (Device.orientation == Orientation.landscape) ?  bottomMenuView(prefixLocalizations) : Center( child : bottomMenuView(prefixLocalizations))
           ],
         ));
   }

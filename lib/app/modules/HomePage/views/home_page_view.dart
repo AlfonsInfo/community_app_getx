@@ -10,7 +10,7 @@ class HomePageView extends GetView<HomePageController> {
   Widget build(BuildContext context) {
     return  const Center(
         child: Text(
-          'HomePageView is working',
+          'Good Morning',
           style: TextStyle(fontSize: 20),
         ),
       );

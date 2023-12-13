@@ -13,15 +13,15 @@ extension ProfileImageSection on ProfilePageView {
 
   Positioned profileImage() {
     return Positioned(
-      width: 400,
+      width: 100.w,
       bottom: 0,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(40.0),
         child: SizedBox(
-            height: 80,
-            width: 80,
+            height: 15.h,
+            width: 20.w,
             child: Image.asset(
-              'assets/images/itbca.jpg',
+              ImageAssetPaths.dummyUser,
             )),
       ),
     );
@@ -113,14 +113,17 @@ extension MyProfileSection on ProfilePageView {
               ),
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ElevatedButton(
-                  onPressed: () {}, child: const Text("Update Profile")),
-              ElevatedButton(
-                  onPressed: () {}, child: const Text("Change Password")),
-            ],
+          Padding(
+            padding: EdgeInsets.only(bottom: 2.h ,top: 2.h),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                    onPressed: () {}, child: const Text("Update Profile")),
+                ElevatedButton(
+                    onPressed: () {}, child: const Text("Change Password")),
+              ],
+            ),
           )
         ],
       ),

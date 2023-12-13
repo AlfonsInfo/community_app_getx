@@ -5,6 +5,7 @@ import 'package:jdlcommunity_getx/app/constants/app_constants.dart';
 import 'package:jdlcommunity_getx/app/constants/constants.dart';
 import 'package:jdlcommunity_getx/app/constants/theme_constants.dart';
 import 'package:jdlcommunity_getx/main_app_controller.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'app/routes/app_pages.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,26 +23,30 @@ class MainApp extends StatelessWidget {
   final bool isFirstInstall;
   @override
   Widget build(BuildContext context) {
-    return  Obx(
-      () => GetMaterialApp(
-        title: AppConstant.application,
-        //* ROUTING
-        initialRoute: isFirstInstall ? AppPages.initial : AppPages.login,
-        getPages: AppPages.routes,
+    return  ResponsiveSizer(
+      builder: (context,orientation, screenType) {
+        return Obx(
+          () => GetMaterialApp(
+            title: AppConstant.application,
+            //* ROUTING
+            initialRoute: isFirstInstall ? AppPages.initial : AppPages.login,
+            getPages: AppPages.routes,
+            
+            //* THEME
+            theme: ThemeConstants.lightTheme,
+            darkTheme: ThemeConstants.darkTheme,
+            themeMode: controller.isThemeModeBySistem.value ? ThemeMode.system : controller.defaultThemeMode.value,
+            debugShowCheckedModeBanner: AppConstant.isDebug,
+            
+            //* INTERNATIONALIZATION
+            locale: controller.locale.value, 
+            fallbackLocale: const Locale(LocalizationConstant.englishLocale) ,
+            localizationsDelegates: LocalizationConstant.localizationsDelegate,
+            supportedLocales:LocalizationConstant.supportedLocale,
         
-        //* THEME
-        theme: ThemeConstants.lightTheme,
-        darkTheme: ThemeConstants.darkTheme,
-        themeMode: controller.isThemeModeBySistem.value ? ThemeMode.system : controller.defaultThemeMode.value,
-        debugShowCheckedModeBanner: AppConstant.isDebug,
-        
-        //* INTERNATIONALIZATION
-        locale: controller.locale.value, 
-        fallbackLocale: const Locale(LocalizationConstant.englishLocale) ,
-        localizationsDelegates: LocalizationConstant.localizationsDelegate,
-        supportedLocales:LocalizationConstant.supportedLocale,
-    
-      ),
+          ),
+        );
+      }
     );
   }
 } 

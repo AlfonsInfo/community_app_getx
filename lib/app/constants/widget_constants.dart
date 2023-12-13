@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:jdlcommunity_getx/app/modules/abstract/controller_abstract.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:jdlcommunity_getx/app/routes/app_pages.dart';
-
+import 'package:responsive_sizer/responsive_sizer.dart';
 abstract class WidgetConstant {
   static const spacingBottomX1 = SizedBox(
     height: 10,
@@ -15,9 +15,24 @@ abstract class WidgetConstant {
     height: 20,
   );
 
+  //* spacing sizer 
+  static final spacing2percent = SizedBox(
+    height: 2.h,
+  );
+  //* spacing sizer 
+  static final spacing5percent = SizedBox(
+    height: 5.h,
+  );
+
+  static spacingCustomable (value){
+    return SizedBox(
+      height: value,
+    );
+  }
+
   static const edgeInsetForm = EdgeInsets.only(left: 40, right: 40, bottom: 20);
-  static const edgeInsetForm05 =
-      EdgeInsets.only(left: 40, right: 40, bottom: 10);
+  static final edgeInsetForm05 =
+      EdgeInsets.only(left: 5.w, right: 5.w, bottom: 2.h);
 
   static IconButton eyePassword(
       IconData icon, GetxControllerAbstract controller, value) {

@@ -42,12 +42,18 @@ abstract class ImageAssetPaths{
   // static const englishFlag = "$starterImages/english_flag.png";
   static const indonesianFlag = "$starterImages/indonesian_flag_circle.jpg";
   static const englishFlag = "$starterImages/english_flag_circle.png";
+  static const dummyUser = "$starterImages/dummy_user.jpg";
 }
 
 
 abstract class IconPaths{
   static const starterIcons = "assets/icons";
-  static const events = "$starterIcons/events.png";
+  static const events = "$starterIcons/events2.png";
+  static const friends = "$starterIcons/friends.png";
+  static const discussions = "$starterIcons/discussion.jpg";
+  static const idea = "$starterIcons/idea.png";
+  static const bills = "$starterIcons/bills.png";
+  static const personalSpace = "$starterIcons/personal_space.png";
 }
 abstract class CommonConditions{
   static bool isEmptyValue(String value)

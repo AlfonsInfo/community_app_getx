@@ -128,13 +128,16 @@ extension PreferencesSetting on ProfilePageView {
 
   Center savePreferenceButton() {
     return Center(
-        child: ElevatedButton(
-            onPressed: () {
-              dialogSavePreference();
-            },
-            child: Text(
-              AppLocalizations.of(Get.context!).preferences_save,
-            )));
+        child: Padding(
+          padding: EdgeInsets.only(bottom: 2.h ,top: 2.h),
+          child: ElevatedButton(
+              onPressed: () {
+                dialogSavePreference();
+              },
+              child: Text(
+                AppLocalizations.of(Get.context!).preferences_save,
+              )),
+        ));
   }
 
   Future<dynamic> dialogSavePreference() {

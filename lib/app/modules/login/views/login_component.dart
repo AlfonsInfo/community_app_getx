@@ -65,7 +65,6 @@ extension LoginMenuComponent on LoginView {
 
     return SingleChildScrollView(
       child: Column(
-        // mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           SizedBox(
@@ -224,8 +223,8 @@ Widget loginUsernameInput(AppLocalizations prefixLocalizations) {
 }
 
 SizedBox onLoadingButton() {
-  return const SizedBox(
-                width: 10,
-                height :10,
-                child:  CircularProgressIndicator( ));
+  return  SizedBox(
+                width: 2.h,
+                height :2.h,
+                child:  const CircularProgressIndicator());
 }
