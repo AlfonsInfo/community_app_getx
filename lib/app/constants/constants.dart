@@ -14,7 +14,18 @@ abstract class FileNameConstants{
 
 abstract  class SharedPreferencesKey{
   static const  isFirstInstall = "is_first_install";
+  //* Get box
+  static const savedPreferencesKey = "saved_preferences_key";
+  static const localLanguage = "local_language";
+  static const localTheme = "local_theme";
+  static const themeBySystem = "theme_by_system";
+
 }
+
+abstract class PreferenceConstant{
+  static const locally = "locally";
+  static const accountBased = "accountBased";
+} 
 
 abstract class ImageAssetPaths{
   static const starterImages = "assets/images";

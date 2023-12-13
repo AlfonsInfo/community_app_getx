@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:jdlcommunity_getx/app/constants/constants.dart';
 import 'package:jdlcommunity_getx/app/constants/widget_constants.dart';
 import 'package:jdlcommunity_getx/app/data/preference_options.dart';
+import 'package:jdlcommunity_getx/main.dart';
 import 'package:jdlcommunity_getx/main_app_controller.dart';
 import '../controllers/profile_page_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -15,6 +17,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
   ProfilePageView({Key? key}) : super(key: key);
   final MainAppController mainAppController = Get.put(MainAppController());
   final prefixLocalizations = AppLocalizations.of(Get.context!);
+  final TextEditingController dropDownPreferencesSavingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {

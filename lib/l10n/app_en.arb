@@ -37,6 +37,7 @@
     "local_preferences" : "Local Preferences",
     "account_based_preferences" : "Account Preferences",
     "preferences_theme" : "Theme",
+    "theme_base_on_system" : "Follow System Theme",
     "preferences_language" : "Language",
     "preferences_save_locally" : "Save Preferences Locally ?",
     "save" : "Save",

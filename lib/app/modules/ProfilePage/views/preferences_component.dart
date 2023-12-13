@@ -11,8 +11,16 @@ extension PreferencesSetting on ProfilePageView {
         children: [
           //* pilihan save tema dan pilihan bahasa secara lokal ?
           //* Delete setingan bahasa dan tema lokal ?
-          themeSwitch(),
-          languageSwitch(),
+          themeBySystem(),
+           Obx((){
+             return mainAppController.isThemeModeBySistem.isTrue ?  Container() : themeSwitch();
+           }
+          ),
+           Obx((){
+             return mainAppController.isThemeModeBySistem.isTrue ?  Container() : languageSwitch();
+           }
+          )
+            ,
           savePreferenceButton()
         ],
       ),
@@ -51,6 +59,32 @@ extension PreferencesSetting on ProfilePageView {
                   ),
                 ),
               ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+   Padding themeBySystem() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(prefixLocalizations.theme_base_on_system),
+          Obx(
+            () => Padding(
+              padding: const EdgeInsets.only(right: 30.0),
+              child: InkWell(
+                        child: Switch(
+                          onChanged: (bool value) {
+                            mainAppController.isThemeModeBySistem.value = value;
+                          },
+                          inactiveThumbColor: Colors.grey,
+                          value: mainAppController.isThemeModeBySistem.value,
+                        ),
+                      ),
             ),
           ),
         ],
@@ -98,11 +132,12 @@ extension PreferencesSetting on ProfilePageView {
             onPressed: () {
               dialogSavePreference();
             },
-            child: const Text("Save Preferences")));
+            child: Text(
+              AppLocalizations.of(Get.context!).preferences_save,
+            )));
   }
 
   Future<dynamic> dialogSavePreference() {
-
     return Get.dialog(AlertDialog(
         title: Center(
           child: Text(AppLocalizations.of(Get.context!).preferences_save),
@@ -110,21 +145,43 @@ extension PreferencesSetting on ProfilePageView {
         content: SizedBox(
           height: 200,
           child: Column(children: [
-            Obx(
-              () {
-                List<PreferenceSaveOption> preferences = [
-                  controller.locally.value,
-                  controller.accountbased.value
-                ];
-                return DropdownMenu<PreferenceSaveOption>(
-                  initialSelection: preferences[0],
-                  controller: TextEditingController(),
-                  dropdownMenuEntries: preferences
-                      .map<DropdownMenuEntry<PreferenceSaveOption>>(
-                          (e) => DropdownMenuEntry(value: e, label: e.name!))
-                      .toList());
-              }
-            )
+            Obx(() {
+              return DropdownMenu<PreferenceSaveOption>(
+                initialSelection: controller.preferencesOption[0],
+                controller: dropDownPreferencesSavingController,
+                dropdownMenuEntries: controller.preferencesOption
+                    .map<DropdownMenuEntry<PreferenceSaveOption>>((e) =>
+                        DropdownMenuEntry(
+                            value: e,
+                            label: controller.isIndoLanguageToggle.value
+                                ? e.nameIndo!
+                                : e.nameEng!))
+                    .toList(),
+                onSelected: (value) =>
+                    controller.preferenceSelectedSavingMethod.value = value!,
+              );
+            }),
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 20.0,
+              ),
+              child: Center(
+                  child: Obx(() => Text(
+                      controller.isIndoLanguageToggle.value
+                          ? controller.preferenceSelectedSavingMethod.value
+                                  .descriptionIndo ??
+                              ""
+                          : controller.preferenceSelectedSavingMethod.value
+                                  .descriptionEng ??
+                              "",
+                      textAlign: TextAlign.justify))),
+            ),
+            ElevatedButton(
+                onPressed: (){
+                  controller.savePreference();
+                  Get.back();
+                },
+                child: Text(AppLocalizations.of(Get.context!).save))
           ]),
         )));
   }

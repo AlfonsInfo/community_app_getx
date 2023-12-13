@@ -36,7 +36,7 @@ class MainApp extends StatelessWidget {
         debugShowCheckedModeBanner: AppConstant.isDebug,
         
         //* INTERNATIONALIZATION
-        locale: const Locale(LocalizationConstant.indoLocale), 
+        locale: controller.locale.value, 
         fallbackLocale: const Locale(LocalizationConstant.englishLocale) ,
         localizationsDelegates: LocalizationConstant.localizationsDelegate,
         supportedLocales:LocalizationConstant.supportedLocale,

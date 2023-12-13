@@ -56,6 +56,7 @@ class LoginController extends GetxController implements GetxControllerAbstract {
 
   @override
   void onInit() {
+    //isIndoLanguageToggle.value = Get.find<MainAppController>().isIndonesianLanguage.value;
     ever(isIndoLanguageToggle, (_) {});
     super.onInit();
   }

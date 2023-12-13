@@ -36,6 +36,7 @@
     "local_preferences" : "Preferensi Lokal",
     "account_based_preferences" : "Preferensi Akun",
     "preferences_theme" : "Tema",
+    "theme_base_on_system" : "Ikuti Tema Sistem",
     "preferences_language" : "Pilihan Bahasa",
     "preferences_save_locally" : "Simpan preferensi secara lokal ?",
     "save" : "Simpan",
