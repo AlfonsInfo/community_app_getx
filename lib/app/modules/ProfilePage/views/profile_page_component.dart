@@ -34,12 +34,12 @@ extension ProfileImageSection on ProfilePageView {
             child: SizedBox(
                 width: double.infinity,
                 height: MediaQuery.of(context).size.height * 1 / 4,
-                child:  Image(
-                  image :  const AssetImage('assets/images/cover/cover_4.jpg'),
-                  loadingBuilder: (context, child,loadingProgress) {
-                    if(loadingProgress == null){
+                child: Image(
+                  image: const AssetImage('assets/images/cover/cover_4.jpg'),
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) {
                       return child;
-                    }else{
+                    } else {
                       return Skeletonizer(child: placeHolderCovers(context));
                     }
                   },
@@ -53,22 +53,24 @@ extension ProfileImageSection on ProfilePageView {
 
 Positioned changeCoversButton() {
   return Positioned(
-        bottom: 0,
-        right: 0,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: FloatingActionButton(child: const Icon(FontAwesomeIcons.brush),onPressed: (){
-            showCoversOption();
-          }),
-        ));
+      bottom: 0,
+      right: 0,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: FloatingActionButton(
+            child: const Icon(FontAwesomeIcons.brush),
+            onPressed: () {
+              showCoversOption();
+            }),
+      ));
 }
 
 Container placeHolderCovers(BuildContext context) {
   return Container(
-          width: double.infinity,
-          height: MediaQuery.of(context).size.height * 1 / 4,
-          color: Colors.grey,
-        );
+    width: double.infinity,
+    height: MediaQuery.of(context).size.height * 1 / 4,
+    color: Colors.grey,
+  );
 }
 
 void showCoversOption() {
@@ -99,7 +101,8 @@ extension MyProfileSection on ProfilePageView {
                     2: FlexColumnWidth(4),
                   },
                   children: [
-                    profileDetailRow(AppLocalizations.of(Get.context!).full_name,
+                    profileDetailRow(
+                        AppLocalizations.of(Get.context!).full_name,
                         controller.userProfile.fullname),
                     profileDetailRow(AppLocalizations.of(Get.context!).username,
                         controller.userProfile.username),
@@ -150,78 +153,3 @@ extension MyProfileSection on ProfilePageView {
   }
 }
 
-extension PreferencesSetting on ProfilePageView {
-  Card preferences(BuildContext context) {
-    return Card(
-      child: ExpansionTile(
-        title: Text(prefixLocalizations.preferences),
-        leading: const Icon(Icons.settings),
-        expandedAlignment: Alignment.topLeft,
-        expandedCrossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-        Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(prefixLocalizations.preferences_theme),
-                Obx(() => Padding(
-                  padding: const EdgeInsets.only(right: 30.0),
-                  child: IconButton(onPressed: () => mainAppController.toggleThemeMode(), icon: mainAppController.defaultThemeMode.value == ThemeMode.dark ? const Icon(Icons.dark_mode) : const Icon(Icons.light_mode)),
-                )),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(prefixLocalizations.preferences_language),
-                toggleLanguage(AppLocalizations.of(context), context)
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  Obx toggleLanguage(
-      AppLocalizations prefixLocalizations, BuildContext context) {
-    return Obx(
-      () => Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Text(prefixLocalizations.language),
-          Padding(
-            padding: const EdgeInsets.only(right: 30.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                InkWell(
-                  child: Switch(
-                    onChanged: (bool value) {
-                      mainAppController.setLanguage(controller.isIndoLanguageToggle);
-                      controller.toggleLanguage();
-                    },
-                    inactiveThumbColor: Colors.grey,
-                    value: controller.isIndoLanguageToggle.value,
-                    activeThumbImage: Image.asset(
-                      ImageAssetPaths.indonesianFlag,
-                      fit: BoxFit.fitHeight,
-                    ).image,
-                    inactiveThumbImage: Image.asset(
-                      ImageAssetPaths.englishFlag,
-                      fit: BoxFit.fitHeight,
-                    ).image,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}

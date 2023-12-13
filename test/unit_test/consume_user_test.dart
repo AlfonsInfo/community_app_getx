@@ -16,5 +16,8 @@ void main() {
       UserProfile? userProfile = UserProfile.fromJson(map);
       expect(userProfile.runtimeType, UserProfile);
     });
+
+    test("test mapping", () {
+    });
   });
 }
