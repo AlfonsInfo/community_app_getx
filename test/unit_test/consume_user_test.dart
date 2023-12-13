@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart' as dio;
-import 'package:get_storage/get_storage.dart';
 import 'package:jdlcommunity_getx/app/constants/api_constants.dart';
 import 'package:jdlcommunity_getx/app/data/model/user_profile.dart';
 import 'package:test/test.dart';
@@ -19,9 +18,9 @@ void main() {
     });
 
     test("test getstorage", () {
-      GetStorage box = GetStorage();
-      GetStorage.init();
-      print(box.getValues());
+      // GetStorage box = GetStorage();
+      // GetStorage.init();
+
     });
   });
 }

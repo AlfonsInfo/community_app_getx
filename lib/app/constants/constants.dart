@@ -44,6 +44,11 @@ abstract class ImageAssetPaths{
   static const englishFlag = "$starterImages/english_flag_circle.png";
 }
 
+
+abstract class IconPaths{
+  static const starterIcons = "assets/icons";
+  static const events = "$starterIcons/events.png";
+}
 abstract class CommonConditions{
   static bool isEmptyValue(String value)
   {

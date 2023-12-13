@@ -79,7 +79,7 @@ class ProfilePageController extends GetxController with StateMixin<UserProfile>{
         };
         box.write(SharedPreferencesKey.savedPreferencesKey, currentCondition);
     }else{
-      print('lets do it later');
+      //* soon
     }
   }
 
