@@ -42,6 +42,15 @@
     "save" : "Simpan",
     "preferences_save_for_account" : "Simpan preferensi untuk akun ini ?",
     "error" : "Error",
-    "error_detail_server" : "Oops, Ada suatu kesalahan."
+    "error_detail_server" : "Oops, Ada suatu kesalahan.",
+    "upload_photo" : "Unggah Foto",
+    "update_profile" : "Edit Profil",
+    "change_password" : "Ganti Password",
+    "choose_media" : "Silihkan pilih media akan dipilih",
+    "from_gallery" : "Dari galleri",
+    "from_camera" : "Dari kamera"
+
+
+
 
 }

@@ -35,15 +35,13 @@ extension ProfileImageSection on ProfilePageView {
                 height: MediaQuery.of(context).size.height * 1 / 4,
                 child: Image(
                   image: const AssetImage('assets/images/cover/cover_4.jpg'),
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress == null) {
+                  frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+                    if(wasSynchronouslyLoaded){
                       return child;
-                    } else {
-                      return Skeletonizer(
-                        enabled: true,
-                        containersColor: Colors.grey,
-                        child: placeHolderCovers(context),
-                        );
+                    }else{
+                      return  FadeTransition(opacity: const  AlwaysStoppedAnimation<double>(5),
+                      child: child,
+                      );
                     }
                   },
                   fit: BoxFit.fill,
@@ -142,10 +140,10 @@ extension MyProfileSection on ProfilePageView {
               children: [
                 ElevatedButton(
                     onPressed: () => controller.navigateToUpdateProfile()
-                    ,child: const Text("Update Profile")),
+                    ,child: Text(AppLocalizations.of(Get.context!).update_profile)),
                 ElevatedButton(
-                    onPressed: () {}, child: const Text("Change Password")),
-              ],
+                    onPressed: () {}, child: Text((AppLocalizations.of(Get.context!).change_password)),) 
+                    ],
             ),
           )
         ],

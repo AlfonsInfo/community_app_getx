@@ -43,6 +43,11 @@
     "save" : "Save",
     "preferences_save_for_account" : "Save Preference For this account ?",
     "error" : "Error",
-    "error_detail_server" : "Oops, Something went wrong."
-    
+    "error_detail_server" : "Oops, Something went wrong.",
+    "upload_photo" : "Upload Photo",
+    "update_profile" : "Update Profile",
+    "change_password" : "Change Password",
+    "choose_media" : "Please choose media to select",
+    "from_gallery" : "From Gallery",
+    "from_camera" : "From Camera"
 }
