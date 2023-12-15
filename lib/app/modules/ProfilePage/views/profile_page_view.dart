@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:jdlcommunity_getx/app/constants/app_constants.dart';
+import 'package:jdlcommunity_getx/app/constants/api_constants.dart';
 import 'package:jdlcommunity_getx/app/constants/constants.dart';
 import 'package:jdlcommunity_getx/app/constants/widget_constants.dart';
 import 'package:jdlcommunity_getx/app/data/preference_options.dart';
+import 'package:jdlcommunity_getx/app/routes/app_pages.dart';
 import 'package:jdlcommunity_getx/main_app_controller.dart';
 import '../controllers/profile_page_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 part 'profile_page_component.dart';
 part 'preferences_component.dart';
 
@@ -33,7 +35,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
       preferences(context),
       WidgetConstant.spacingBottomX3,
       //* Tombol SignOut
-      logoutButton()
+      logoutButton(),
     ]);
   }
 

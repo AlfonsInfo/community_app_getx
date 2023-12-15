@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:jdlcommunity_getx/app/constants/constants.dart';
 import 'package:jdlcommunity_getx/app/data/preference_options.dart';
 import 'package:jdlcommunity_getx/app/data/model/user_profile.dart';
+import 'package:jdlcommunity_getx/app/routes/app_pages.dart';
 import 'package:jdlcommunity_getx/app/services/user_service.dart';
 import 'package:jdlcommunity_getx/app/utils/logging_utils.dart';
 import 'package:jdlcommunity_getx/main_app_controller.dart';
@@ -81,6 +82,10 @@ class ProfilePageController extends GetxController with StateMixin<UserProfile>{
     }else{
       //* soon
     }
+  }
+
+  navigateToUpdateProfile(){
+      Get.toNamed(Routes.updateProfilePage);
   }
 
 

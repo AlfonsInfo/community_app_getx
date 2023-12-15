@@ -6,6 +6,8 @@ import '../modules/MenuPage/bindings/menu_page_binding.dart';
 import '../modules/MenuPage/views/menu_page_view.dart';
 import '../modules/ProfilePage/bindings/profile_page_binding.dart';
 import '../modules/ProfilePage/views/profile_page_view.dart';
+import '../modules/UpdateProfilePage/bindings/update_profile_page_binding.dart';
+import '../modules/UpdateProfilePage/views/update_profile_page_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/register/bindings/register_binding.dart';
@@ -60,6 +62,11 @@ class AppPages {
       name: _Paths.PROFILE_PAGE,
       page: () => ProfilePageView(),
       binding: ProfilePageBinding(),
+    ),
+    GetPage(
+      name: _Paths.updateProfilePage,
+      page: () => const UpdateProfilePageView(),
+      binding: UpdateProfilePageBinding(),
     ),
   ];
 }

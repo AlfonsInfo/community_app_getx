@@ -50,4 +50,17 @@ class UserService  {
       }
     }
   }
+
+
+  // currentPhotoProfile() async{
+  //   dio.Response? response;
+
+  //   try{
+  //     //response = await ApiConstant.dio.get(EndPoint.photoProfile);
+
+  //   } on  dio.DioException catch (e)
+  //   {
+
+  //   }
+  // }
 }

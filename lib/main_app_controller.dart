@@ -14,8 +14,9 @@ class MainAppController extends GetxController{
   final defaultThemeMode = ThemeMode.light.obs;
   UserService userService = UserService();
   GetStorage box = GetStorage();
-
   var locale = const Locale(LocalizationConstant.indoLocale).obs;
+
+  Map<String,String> headers = {};
 
   @override
   onInit() async{

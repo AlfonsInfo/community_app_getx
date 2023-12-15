@@ -3,7 +3,7 @@ part of 'profile_page_view.dart';
 extension ProfileImageSection on ProfilePageView {
   Stack profileImageSection(bool isUseCover, BuildContext context) {
     return Stack(
-      children: [
+      children: [ 
         profileCover(isUseCover, context),
         profileImage(),
         changeCoversButton()
@@ -18,11 +18,11 @@ extension ProfileImageSection on ProfilePageView {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(40.0),
         child: SizedBox(
-            height: 15.h,
-            width: 20.w,
-            child: Image.asset(
-              ImageAssetPaths.dummyUser,
-            )),
+          height: 15.h,
+          width: 15.w,
+          // child: profileImageFromNetwork(),),
+          child: profileNetworkCacheImage()
+          ),
       ),
     );
   }
@@ -51,6 +51,30 @@ extension ProfileImageSection on ProfilePageView {
   }
 }
 
+CachedNetworkImage profileNetworkCacheImage() {
+  return CachedNetworkImage(
+            imageUrl: '${ApiConstant.prefixEndpoint}${EndPoint.photoProfile}',
+            httpHeaders: Get.find<MainAppController>().headers,
+            fadeInDuration: Duration.zero,
+            placeholder:(context, url) => Skeletonizer(
+              enabled: true,
+              child: SizedBox(
+                width: 15.h,
+                height: 20.w,
+              ) ),
+          );
+}
+
+// Positioned changeProfileButton() {
+//   return Positioned(
+//       width: 135.w,
+//       bottom: 0,
+//       child: FloatingActionButton(
+//           child: const Icon(Icons.update),
+//           onPressed: () {
+//             showCoversOption();
+//           }));
+// }
 Positioned changeCoversButton() {
   return Positioned(
       bottom: 0,
@@ -119,7 +143,8 @@ extension MyProfileSection on ProfilePageView {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 ElevatedButton(
-                    onPressed: () {}, child: const Text("Update Profile")),
+                    onPressed: () => controller.navigateToUpdateProfile()
+                    ,child: const Text("Update Profile")),
                 ElevatedButton(
                     onPressed: () {}, child: const Text("Change Password")),
               ],

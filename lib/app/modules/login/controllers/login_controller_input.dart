@@ -44,6 +44,8 @@ extension LoginControllerInput on  LoginController{
 
   onSuccess(message,data){
     Get.find<MainAppController>().box.write(ApiConstant.sessionToken, data['session'] );
+    Get.find<MainAppController>().headers.addAll(
+      {'Authorization' :  Get.find<MainAppController>().box.read(ApiConstant.sessionToken) });
     ScaffoldMessenger.of(Get.context!).showSnackBar(WidgetConstant.basicSnackBar(message));
     Get.offNamed(Routes.home);    
     isLoading.value = false;

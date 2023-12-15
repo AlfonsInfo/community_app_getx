@@ -49,7 +49,7 @@ class MenuPageView extends GetView<MenuPageController> {
                   // width: 35.w,
                   height: 39.w,
                   child: Image.asset(imagePath)),
-                Text(text,style: TextStyle(color: Colors.black),),
+                Text(text,style: const TextStyle(color: Colors.black),),
               ],
             ),
           ),
