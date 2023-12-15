@@ -20,7 +20,6 @@ extension ProfileImageSection on ProfilePageView {
         child: SizedBox(
           height: 15.h,
           width: 15.w,
-          // child: profileImageFromNetwork(),),
           child: profileNetworkCacheImage()
           ),
       ),
@@ -40,7 +39,11 @@ extension ProfileImageSection on ProfilePageView {
                     if (loadingProgress == null) {
                       return child;
                     } else {
-                      return Skeletonizer(child: placeHolderCovers(context));
+                      return Skeletonizer(
+                        enabled: true,
+                        containersColor: Colors.grey,
+                        child: placeHolderCovers(context),
+                        );
                     }
                   },
                   fit: BoxFit.fill,
@@ -56,13 +59,8 @@ CachedNetworkImage profileNetworkCacheImage() {
             imageUrl: '${ApiConstant.prefixEndpoint}${EndPoint.photoProfile}',
             httpHeaders: Get.find<MainAppController>().headers,
             fadeInDuration: Duration.zero,
-            placeholder:(context, url) => Skeletonizer(
-              enabled: true,
-              child: SizedBox(
-                width: 15.h,
-                height: 20.w,
-              ) ),
-          );
+            placeholder: (context, url) => const Center(child: CircularProgressIndicator.adaptive()),
+  );
 }
 
 // Positioned changeProfileButton() {
