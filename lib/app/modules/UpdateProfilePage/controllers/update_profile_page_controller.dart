@@ -13,10 +13,15 @@ class UpdateProfilePageController extends GetxController {
   Rxn<List<int>> currentPhotoProfile = Rxn();
 
 
+  //* input value
+  final inputEmail = Get.find<ProfilePageController>().userProfile.email.obs;
+  final inputFullName = Get.find<ProfilePageController>().userProfile.fullname.obs;
+  final inputUsername = Get.find<ProfilePageController>().userProfile.username.obs;
+
+
 
   Future getImage(ImageSource media) async{
     var img = await picker.pickImage(source: media);
-
     image.value = img;
   }
 
@@ -47,7 +52,6 @@ class UpdateProfilePageController extends GetxController {
   {
     image.value = null;
     Get.find<ProfilePageController>().currentPhotoProfile.value = currentPhotoProfile.value;
-    // Get.find<ProfilePageController>().update();
     Get.back();
   }
 

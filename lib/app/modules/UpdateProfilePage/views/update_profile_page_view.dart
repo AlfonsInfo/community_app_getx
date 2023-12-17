@@ -4,13 +4,17 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:jdlcommunity_getx/app/constants/widget_constants.dart';
 import '../controllers/update_profile_page_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:dio/dio.dart' as dio;
 
 class UpdateProfilePageView extends GetView<UpdateProfilePageController> {
-  const UpdateProfilePageView({Key? key}) : super(key: key);
+
+  UpdateProfilePageView({Key? key}) : super(key: key);
+  final prefixLocalizations = AppLocalizations.of(Get.context!);
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -19,27 +23,60 @@ class UpdateProfilePageView extends GetView<UpdateProfilePageController> {
         return Future.value(true);
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(AppLocalizations.of(Get.context!).update_profile),
-          centerTitle: true,
-        ),
-        body: ListView(
-          children: [
-            Obx(
-              () => controller.image.value != null
-                  ? newProfilePhotoContainer()
-                  : currentProfilePhotoContainer(),
-            ),
-            SizedBox(
-              height: 2.h,
-            ),
-            uploadProfileButton(),
-          ],
+        body: SafeArea(
+          child: ListView(
+            children: [
+              title(name: "Update Photo Profile", message: AppLocalizations.of(Get.context!).update_photo_profile),
+              Obx(
+                () => controller.image.value != null
+                    ? newProfilePhotoContainer()
+                    : currentProfilePhotoContainer(),
+              ),
+              SizedBox(
+                height: 2.h,
+              ),
+              uploadProfileButton(),
+              title(name: "Update Profile", message: AppLocalizations.of(Get.context!).update_profile),
+              inputFullName(prefixLocalizations)
+            ],
+          ),
         ),
       ),
     );
   }
 
+  Widget inputFullName(AppLocalizations prefixLocalizations) {
+    return Padding(
+            padding: WidgetConstant.edgeInsetForm05,
+            child: TextFormField(
+              // onChanged: (value) => controller.fullNameChanged(value),
+              initialValue: controller.inputFullName.value,
+              decoration:InputDecoration(
+                labelText: prefixLocalizations.full_name,
+                // errorText: controller.errorFullName.value
+                ),
+            ),
+          // ),
+    );
+ }
+
+  Padding title({name,message}) {
+    return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(message,
+              style: TextStyle(fontSize: 6.w,fontWeight: FontWeight.bold),),
+            );
+  }
+
+}
+
+
+extension UpdateProfileData on UpdateProfilePageView{
+
+}
+
+extension UpdatePhotoProfileComponent on UpdateProfilePageView{
+  
   Padding currentProfilePhotoContainer() {
     return  Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),

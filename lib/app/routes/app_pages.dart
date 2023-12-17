@@ -65,7 +65,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.updateProfilePage,
-      page: () => const UpdateProfilePageView(),
+      page: () => UpdateProfilePageView(),
       binding: UpdateProfilePageBinding(),
     ),
   ];

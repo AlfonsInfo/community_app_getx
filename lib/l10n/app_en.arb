@@ -46,6 +46,7 @@
     "error_detail_server" : "Oops, Something went wrong.",
     "upload_photo" : "Upload Photo",
     "update_profile" : "Update Profile",
+    "update_photo_profile" : "Update Photo Profile",
     "change_password" : "Change Password",
     "choose_media" : "Please choose media to select",
     "from_gallery" : "From Gallery",

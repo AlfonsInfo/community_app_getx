@@ -8,11 +8,19 @@ class HomePageView extends GetView<HomePageController> {
   const HomePageView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return  const Center(
-        child: Text(
-          'Good Morning',
-          style: TextStyle(fontSize: 20),
-        ),
-      );
+    return  const Column(
+      children: [
+        Center(
+            child: Text(
+              'kuddos',
+              style: TextStyle(fontSize: 20),
+            ),
+          ),
+             Text(
+              'cop points ??',
+              style: TextStyle(fontSize: 20),
+            ),
+      ],
+    );
   }
 }
