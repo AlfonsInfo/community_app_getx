@@ -29,7 +29,7 @@
     "logout_alert_title" : "Logout Confirmation",
     "logout_alert_middle" : "Are you sure you want to log out?",
     "logout_alert_confirm" : "Yes, Logout",
-    "logout_alert_cancel" : "Cancel",
+    "cancel" : "Cancel",
     "logout" : "logout",
     "my_profile" : "My Profile",
     "preferences" : "Your preferences",
@@ -49,5 +49,14 @@
     "change_password" : "Change Password",
     "choose_media" : "Please choose media to select",
     "from_gallery" : "From Gallery",
-    "from_camera" : "From Camera"
+    "from_camera" : "From Camera",
+    "photo_profile" : "Photo profile",
+    "update_confirmation" : "Are you sure you want to update your {subject}?",
+    "confirm_change" : "Confirm Change",
+    "update_subject" : "update {subject}",
+    "confirm_cancelled_title" : "Confirm Cancellation",
+    "confirm_cancelled_middle" :  "Are you sure you want to cancel the changes you made?",
+    "yes" : "Yes",
+    "no"  : "No"
+
 }

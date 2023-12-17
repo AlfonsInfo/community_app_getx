@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:jdlcommunity_getx/app/modules/abstract/controller_abstract.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -53,7 +54,7 @@ abstract class WidgetConstant {
       title: AppLocalizations.of(Get.context!).logout_alert_title,
       middleText: AppLocalizations.of(Get.context!).logout_alert_middle,
       textConfirm: AppLocalizations.of(Get.context!).logout_alert_confirm,
-      textCancel: AppLocalizations.of(Get.context!).logout_alert_cancel,
+      textCancel: AppLocalizations.of(Get.context!).cancel,
       confirmTextColor: Colors.white,
       cancelTextColor: Colors.black,
       buttonColor: Colors.blue, // Warna latar belakang tombol konfirmasi
@@ -64,4 +65,21 @@ abstract class WidgetConstant {
       },
     );
   }
+
+
+
+}
+
+
+
+abstract class IconConstant{
+  
+  
+  //* ICONS
+  static const gridView = Icon(Icons.grid_view_rounded);
+  static const house = Icon(FontAwesomeIcons.house);
+  static const person = Icon(Icons.person);
+  static const settings = Icon(Icons.settings);
+  static const darkMode = Icon(Icons.dark_mode);
+  static const lightMode = Icon(Icons.light_mode);
 }

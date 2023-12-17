@@ -15,8 +15,8 @@ class MainAppController extends GetxController{
   UserService userService = UserService();
   GetStorage box = GetStorage();
   var locale = const Locale(LocalizationConstant.indoLocale).obs;
-
   Map<String,String> headers = {};
+  
 
   @override
   onInit() async{

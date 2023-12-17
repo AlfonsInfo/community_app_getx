@@ -5,7 +5,7 @@ extension PreferencesSetting on ProfilePageView {
     return Card(
       child: ExpansionTile(
         title: Text(prefixLocalizations.preferences),
-        leading: const Icon(Icons.settings),
+        leading: IconConstant.settings,
         expandedAlignment: Alignment.topLeft,
         expandedCrossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -105,8 +105,9 @@ extension PreferencesSetting on ProfilePageView {
                     onPressed: () => mainAppController.toggleThemeMode(),
                     icon: mainAppController.defaultThemeMode.value ==
                             ThemeMode.dark
-                        ? const Icon(Icons.dark_mode)
-                        : const Icon(Icons.light_mode)),
+                        ? IconConstant.darkMode
+                        : IconConstant.lightMode 
+                        ),
               )),
         ],
       ),

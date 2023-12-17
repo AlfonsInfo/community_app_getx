@@ -29,7 +29,7 @@
     "logout_alert_title": "Konfirmasi Keluar",
     "logout_alert_middle": "Apa kamu yakin ingin keluar dari aplikasi?",
     "logout_alert_confirm": "Iya, yakin",
-    "logout_alert_cancel": "Batal",
+    "cancel": "Batal",
     "my_profile" : "Profil Saya",
     "preferences" : "Preferensi Anda",
     "preferences_save" : "Simpan Preferensi",
@@ -48,9 +48,13 @@
     "change_password" : "Ganti Password",
     "choose_media" : "Silihkan pilih media akan dipilih",
     "from_gallery" : "Dari galleri",
-    "from_camera" : "Dari kamera"
-
-
-
-
+    "from_camera" : "Dari kamera",
+    "photo_profile" : "Foto profil",
+    "update_confirmation" : "Anda yakin ingin memperbarui {subject}?",
+    "confirm_change" : "Konfirmasi perubahan",
+    "update_subject" : "perbarui {subject}",
+    "confirm_cancelled_title" : "Konfirmasi pembatalan",
+    "confirm_cancelled_middle" :  "Anda yakin ingin membatalkan perubahan yang Anda lakukan?",
+    "yes" : "Iya",
+    "no"  : "Tidak"
 }

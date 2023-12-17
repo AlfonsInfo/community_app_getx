@@ -6,6 +6,7 @@ extension ProfileImageSection on ProfilePageView {
       children: [ 
         profileCover(isUseCover, context),
         profileImage(),
+        // photoProfileFetch(),
         changeCoversButton()
       ],
     );
@@ -14,13 +15,16 @@ extension ProfileImageSection on ProfilePageView {
   Positioned profileImage() {
     return Positioned(
       width: 100.w,
-      bottom: 0,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(40.0),
+      bottom: 0.h,
+      child: Center(
         child: SizedBox(
+          width: 20.w,
           height: 15.h,
-          width: 15.w,
-          child: profileNetworkCacheImage()
+          // child: profileNetworkCacheImage()
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(360),
+            child: photoProfileFetch(),
+            )
           ),
       ),
     );
@@ -28,28 +32,53 @@ extension ProfileImageSection on ProfilePageView {
 
   Widget profileCover(bool isUseCover, BuildContext context) {
     return (isUseCover)
-        ? Padding(
-            padding: const EdgeInsets.only(bottom: 30),
-            child: SizedBox(
-                width: double.infinity,
-                height: MediaQuery.of(context).size.height * 1 / 4,
-                child: Image(
-                  image: const AssetImage('assets/images/cover/cover_4.jpg'),
-                  frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
-                    if(wasSynchronouslyLoaded){
-                      return child;
-                    }else{
-                      return  FadeTransition(opacity: const  AlwaysStoppedAnimation<double>(5),
-                      child: child,
-                      );
-                    }
-                  },
-                  fit: BoxFit.fill,
-                  // ignore: dead_code
-                )),
-          )
+        ? covers(context)
         : placeHolderCovers(context);
   }
+Widget photoProfileFetch()
+{
+  return FutureBuilder(
+    future: controller.getPhotoProfile(),
+    builder: (context, snapshot) {
+      if(snapshot.connectionState == ConnectionState.done)
+      {
+        var data = snapshot.data! as dio.Response<List<int>>? ;
+        controller.currentPhotoProfile.value = data!.data!;
+           return Obx(
+             () => Image.memory(
+              Uint8List.fromList(controller.currentPhotoProfile.value!)
+              ,fit: BoxFit.fill,),
+           );
+      } else {
+        return const Center(child: CircularProgressIndicator(),);
+        // return Skeletonizer(child: Image.asset(ImageAssetPaths.dummyUser));
+      }
+    },); 
+}
+}
+
+
+Padding covers(BuildContext context) {
+  return Padding(
+          padding: const EdgeInsets.only(bottom: 30),
+          child: SizedBox(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height * 1 / 4,
+              child: Image(
+                image: const AssetImage('assets/images/cover/cover_4.jpg'),
+                frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+                  if(wasSynchronouslyLoaded){
+                    return child;
+                  }else{
+                    return  FadeTransition(opacity: const  AlwaysStoppedAnimation<double>(5),
+                    child: child,
+                    );
+                  }
+                },
+                fit: BoxFit.fill,
+                // ignore: dead_code
+              )),
+        );
 }
 
 CachedNetworkImage profileNetworkCacheImage() {
@@ -106,7 +135,7 @@ extension MyProfileSection on ProfilePageView {
     return Card(
       child: ExpansionTile(
         title: Text(AppLocalizations.of(context).my_profile),
-        leading: const Icon(Icons.person),
+        leading: IconConstant.person,
         expandedAlignment: Alignment.topLeft,
         expandedCrossAxisAlignment: CrossAxisAlignment.start,
         children: [

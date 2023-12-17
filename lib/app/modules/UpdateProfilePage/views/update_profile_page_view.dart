@@ -1,63 +1,79 @@
 import 'dart:io';
+import 'dart:typed_data';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:jdlcommunity_getx/app/constants/api_constants.dart';
-import 'package:jdlcommunity_getx/main_app_controller.dart';
 import '../controllers/update_profile_page_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:dio/dio.dart' as dio;
 
 class UpdateProfilePageView extends GetView<UpdateProfilePageController> {
   const UpdateProfilePageView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Update Profile'),
-        centerTitle: true,
-      ),
-      body: ListView(
-        children: [
-          controller.image != null
-              ? newProfilePhotoContainer(context)
-              : currentProfilePhotoContainer(),
-          SizedBox(
-            height: 2.h,
-          ),
-          uploadProfileButton(),
-        ],
+    return WillPopScope(
+      onWillPop:() {
+        controller.handleWillPop();
+        return Future.value(true);
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(AppLocalizations.of(Get.context!).update_profile),
+          centerTitle: true,
+        ),
+        body: ListView(
+          children: [
+            Obx(
+              () => controller.image.value != null
+                  ? newProfilePhotoContainer()
+                  : currentProfilePhotoContainer(),
+            ),
+            SizedBox(
+              height: 2.h,
+            ),
+            uploadProfileButton(),
+          ],
+        ),
       ),
     );
   }
 
   Padding currentProfilePhotoContainer() {
-    return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: CachedNetworkImage(
-                      imageUrl:
-                          '${ApiConstant.prefixEndpoint}${EndPoint.photoProfile}',
-                      httpHeaders: Get.find<MainAppController>().headers,
-                      fadeInDuration: Duration.zero,
-                      placeholder: (context, url) => const Center(
-                          child: CircularProgressIndicator.adaptive()),
-                    )),
-              );
+    return  Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: FutureBuilder(
+            future: controller.getPhotoProfile(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                var data = snapshot.data! as dio.Response<List<int>>?;
+                controller.currentPhotoProfile.value = data!.data!;
+                return Image.memory(
+                  Uint8List.fromList(controller.currentPhotoProfile.value!),
+                  fit: BoxFit.fill,
+                );
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+                // return Skeletonizer(child: Image.asset(ImageAssetPaths.dummyUser));
+              }
+            },
+          )),
+    );
   }
 
-  Padding newProfilePhotoContainer(BuildContext context) {
+  Widget newProfilePhotoContainer() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8),
         child: Image.file(
           //to show image, you type like this.
-          File(controller.image!.path),
+          File(controller.image.value!.path),
           fit: BoxFit.cover,
           width: MediaQuery.of(Get.context!).size.width,
           height: 300,
@@ -84,9 +100,47 @@ class UpdateProfilePageView extends GetView<UpdateProfilePageController> {
             ),
           ),
         ),
-        IconButton(onPressed: (){}, icon: const Icon(Icons.check_box)),
-        IconButton(onPressed: (){}, icon: const Icon(Icons.delete)),
+        Obx(() => (controller.isNewPhotoProfileSelected())
+            ? IconButton(
+                onPressed: () => confirmUpdatePhotoDialog(),
+                icon: const Icon(Icons.check_box))
+            : const SizedBox.shrink()),
+        Obx(() => (controller.isNewPhotoProfileSelected())
+            ? IconButton(
+                onPressed: () => cancelUpdatePhotoDialog(),
+                icon: const Icon(Icons.delete))
+            : const SizedBox.shrink()),
       ],
+    );
+  }
+
+  void confirmUpdatePhotoDialog() {
+    Get.defaultDialog(
+      title: AppLocalizations.of(Get.context!).confirm_change,
+      middleText: AppLocalizations.of(Get.context!)
+          .update_confirmation(AppLocalizations.of(Get.context!).photo_profile),
+      textConfirm: AppLocalizations.of(Get.context!)
+          .update_subject(AppLocalizations.of(Get.context!).photo_profile),
+      confirmTextColor: Colors.white,
+      cancelTextColor: Colors.black,
+      buttonColor: Colors.blue, // Warna latar belakang tombol konfirmasi
+      radius: 10.0, // Jari-jari sudut dialog
+      textCancel: AppLocalizations.of(Get.context!).cancel,
+      onConfirm: () => controller.handleConfirmUpdateProfilePhoto(),
+    );
+  }
+
+  void cancelUpdatePhotoDialog() {
+    Get.defaultDialog(
+      title: AppLocalizations.of(Get.context!).confirm_cancelled_title,
+      middleText: AppLocalizations.of(Get.context!).confirm_cancelled_middle,
+      textConfirm: AppLocalizations.of(Get.context!).yes,
+      textCancel: AppLocalizations.of(Get.context!).no,
+      confirmTextColor: Colors.white,
+      cancelTextColor: Colors.black,
+      buttonColor: Colors.blue, // Warna latar belakang tombol konfirmasi
+      radius: 10.0, // Jari-jari sudut dialog
+      onConfirm: () => controller.handleCancelNewProfilePhoto(),
     );
   }
 

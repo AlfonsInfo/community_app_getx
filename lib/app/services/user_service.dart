@@ -1,20 +1,22 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:jdlcommunity_getx/app/constants/api_constants.dart';
 import 'package:jdlcommunity_getx/app/data/model/user_profile.dart';
 import 'package:jdlcommunity_getx/app/utils/logging_utils.dart';
 import 'package:jdlcommunity_getx/main_app_controller.dart';
 
-class UserService  {
+class UserService {
   loginRequest(data) async {
     dio.Response? response;
     try {
-       response = await ApiConstant.dio.post(EndPoint.login, data: data);
+      response = await ApiConstant.dio.post(EndPoint.login, data: data);
       return response.data['data'];
     } on dio.DioException catch (e) {
-      LoggingUtils.logDebugValue(e.toString(),"Exception");
+      LoggingUtils.logDebugValue(e.toString(), "Exception");
       return response?.statusCode;
     }
   }
@@ -22,10 +24,11 @@ class UserService  {
   regisRequest(data) async {
     dio.Response? response;
     try {
-      response = await ApiConstant.dio.post(EndPoint.register, data: jsonEncode(data));
+      response =
+          await ApiConstant.dio.post(EndPoint.register, data: jsonEncode(data));
       return response.statusCode.toString();
     } on dio.DioException catch (e) {
-      LoggingUtils.logDebugValue(e.toString(),"Exception");
+      LoggingUtils.logDebugValue(e.toString(), "Exception");
       return response?.statusCode.toString();
     }
   }
@@ -51,16 +54,40 @@ class UserService  {
     }
   }
 
+  getPhotoProfile() async {
+    dio.Response? response;
 
-  // currentPhotoProfile() async{
-  //   dio.Response? response;
+    try {
+      response = await ApiConstant.dio.get<List<int>>(EndPoint.photoProfile,
+          options: dio.Options(
+              headers: Get.find<MainAppController>().headers,
+              responseType: dio.ResponseType.bytes));
+              
+      return response;
+    } on dio.DioException catch (e) {
+      LoggingUtils.logDebugValue(e.toString(), "Exception");
+      return response?.statusCode.toString();
+    }
+  }
 
-  //   try{
-  //     //response = await ApiConstant.dio.get(EndPoint.photoProfile);
-
-  //   } on  dio.DioException catch (e)
-  //   {
-
-  //   }
-  // }
+  postPhotoProfile(XFile? data) async {
+    dio.Response? response;
+    File file = File(data!.path);
+    String fileName = file.path.split('/').last;
+    dio.FormData formData = dio.FormData.fromMap({
+         "image":  await dio.MultipartFile.fromFile(file.path, filename: fileName)
+    });
+    
+    try {
+      response = await ApiConstant.dio.post(EndPoint.photoProfile,
+          options: dio.Options(
+              headers: Get.find<MainAppController>().headers,
+              ),
+              data: formData);
+      return response;
+    } on dio.DioException catch (e) {
+      LoggingUtils.logDebugValue(e.toString(), "Exception");
+      return response?.statusCode.toString();
+    }
+  }
 }

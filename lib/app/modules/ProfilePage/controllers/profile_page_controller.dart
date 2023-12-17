@@ -15,8 +15,8 @@ class ProfilePageController extends GetxController with StateMixin<UserProfile>{
   RxBool isIndoLanguageToggle = Get.find<MainAppController>().isIndonesianLanguage.value.obs;
   UserService userService = Get.find<MainAppController>().userService;
   
-
   UserProfile userProfile = UserProfile();
+  Rxn<List<int>> currentPhotoProfile = Rxn();
   RxBool isLoadingProfileData = false.obs;
 
   static final englishLang = AppLocalizationsEn();
@@ -86,6 +86,11 @@ class ProfilePageController extends GetxController with StateMixin<UserProfile>{
 
   navigateToUpdateProfile(){
       Get.toNamed(Routes.updateProfilePage);
+  }
+
+  getPhotoProfile()
+  {
+    return userService.getPhotoProfile();
   }
 
 

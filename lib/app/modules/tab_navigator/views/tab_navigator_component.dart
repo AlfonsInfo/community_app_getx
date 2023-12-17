@@ -38,10 +38,10 @@ extension LogoutComponent on TabNavigatorView {
 
 extension ArchiveView on TabNavigatorView {
   BottomNavigationBarItem menuMenu() => const BottomNavigationBarItem(
-      label: "Menu", icon: Icon(Icons.grid_view_rounded));
+      label: "Menu", icon: IconConstant.house);
 
   BottomNavigationBarItem menuHomePage() => const BottomNavigationBarItem(
-      label: "Beranda", icon: Icon(FontAwesomeIcons.house));
+      label: "Beranda", icon: IconConstant.gridView);
 
   BottomNavigationBarItem menuChats() {
     return BottomNavigationBarItem(
