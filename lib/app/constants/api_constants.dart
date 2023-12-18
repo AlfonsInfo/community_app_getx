@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 abstract class ApiConstant{
+  static const localHost = 'http://10.176.74.202';
   // static const localHost = 'http://192.168.1.15';
-  static const localHost = 'http://10.200.119.132';
-  // static const localHost = 'http://10.176.74.202';
+  // static const localHost = 'http://10.200.119.132';
   // static const localHost = 'http://192.168.43.34';
   static const port = ':8000';
   static const prefixEndpoint = '$localHost$port/api';

@@ -19,7 +19,11 @@ class UpdateProfilePageController extends GetxController {
   final inputUsername = Get.find<ProfilePageController>().userProfile.username.obs;
 
 
-
+  //* map data
+  final mapGender = {
+    0 : {'ind' : 'Laki-laki' , 'eng' : 'Male'},
+    1 : {'ind' : 'Perempuan' , 'eng' : 'Female'},
+  };
   Future getImage(ImageSource media) async{
     var img = await picker.pickImage(source: media);
     image.value = img;

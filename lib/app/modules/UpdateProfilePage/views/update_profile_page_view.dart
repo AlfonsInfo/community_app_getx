@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
-
+import 'package:multi_dropdown/multiselect_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,33 +11,44 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:dio/dio.dart' as dio;
 
 class UpdateProfilePageView extends GetView<UpdateProfilePageController> {
-
   UpdateProfilePageView({Key? key}) : super(key: key);
   final prefixLocalizations = AppLocalizations.of(Get.context!);
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop:() {
+      onWillPop: () {
         controller.handleWillPop();
         return Future.value(true);
       },
       child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(AppLocalizations.of(Get.context!).update_profile),
+        ),
         body: SafeArea(
           child: ListView(
             children: [
-              title(name: "Update Photo Profile", message: AppLocalizations.of(Get.context!).update_photo_profile),
+              title(
+                  message:
+                      AppLocalizations.of(Get.context!).update_photo_profile),
               Obx(
                 () => controller.image.value != null
                     ? newProfilePhotoContainer()
                     : currentProfilePhotoContainer(),
               ),
-              SizedBox(
-                height: 2.h,
-              ),
+              WidgetConstant.spacingCustomable(2.h),
               uploadProfileButton(),
-              title(name: "Update Profile", message: AppLocalizations.of(Get.context!).update_profile),
-              inputFullName(prefixLocalizations)
+              title(
+                  message: AppLocalizations.of(Get.context!)
+                      .update_your_information),
+              inputFullName(prefixLocalizations),
+              inputEmail(prefixLocalizations),
+              inputUsername(prefixLocalizations),
+              inputGender(prefixLocalizations),
+              inputBio(prefixLocalizations),
+              inputHobby(prefixLocalizations),
+              updateUserInformation()
             ],
           ),
         ),
@@ -45,40 +56,149 @@ class UpdateProfilePageView extends GetView<UpdateProfilePageController> {
     );
   }
 
-  Widget inputFullName(AppLocalizations prefixLocalizations) {
+  Padding title({name, message}) {
     return Padding(
-            padding: WidgetConstant.edgeInsetForm05,
-            child: TextFormField(
-              // onChanged: (value) => controller.fullNameChanged(value),
-              initialValue: controller.inputFullName.value,
-              decoration:InputDecoration(
-                labelText: prefixLocalizations.full_name,
-                // errorText: controller.errorFullName.value
-                ),
-            ),
-          // ),
+      padding: const EdgeInsets.all(8.0),
+      child: Text(
+        message,
+        style: TextStyle(fontSize: 6.w, fontWeight: FontWeight.bold),
+      ),
     );
- }
+  }
+}
 
-  Padding title({name,message}) {
-    return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(message,
-              style: TextStyle(fontSize: 6.w,fontWeight: FontWeight.bold),),
-            );
+extension UpdateProfileData on UpdateProfilePageView {
+  Widget updateUserInformation() {
+    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: SizedBox(
+            width: 200,
+            child: ElevatedButton(
+              onPressed: () {
+                alertUploadPhoto();
+              },
+              child: Text(AppLocalizations.of(Get.context!).update_profile),
+            ),
+          ),
+        ),
+      )
+    ]);
   }
 
+  Widget inputFullName(AppLocalizations prefixLocalizations) {
+    return Padding(
+      padding: WidgetConstant.edgeInsetForm05,
+      child: TextFormField(
+        // onChanged: (value) => controller.fullNameChanged(value),
+        initialValue: controller.inputFullName.value,
+        decoration: InputDecoration(
+          labelText: prefixLocalizations.full_name,
+          // errorText: controller.errorFullName.value
+        ),
+      ),
+      // ),
+    );
+  }
+
+  Widget inputEmail(AppLocalizations prefixLocalizations) {
+    return Padding(
+      padding: WidgetConstant.edgeInsetForm05,
+      child: TextFormField(
+        // onChanged: (value) => controller.fullNameChanged(value),
+        initialValue: controller.inputEmail.value,
+        decoration: InputDecoration(
+          labelText: prefixLocalizations.full_name,
+          // errorText: controller.errorFullName.value
+        ),
+      ),
+      // ),
+    );
+  }
+
+  Widget inputUsername(AppLocalizations prefixLocalizations) {
+    return Padding(
+      padding: WidgetConstant.edgeInsetForm05,
+      child: TextFormField(
+        // onChanged: (value) => controller.fullNameChanged(value),
+        initialValue: controller.inputUsername.value,
+        decoration: InputDecoration(
+          labelText: prefixLocalizations.full_name,
+          // errorText: controller.errorFullName.value
+        ),
+      ),
+      // ),
+    );
+  }
+
+  Widget inputBio(AppLocalizations prefixLocalizations) {
+    return Padding(
+      padding: WidgetConstant.edgeInsetForm05,
+      child: TextFormField(
+        // onChanged: (value) => controller.fullNameChanged(value),
+        // initialValue: controller.inputUsername.value,
+        maxLines: 3,
+        maxLength: 150,
+        decoration: InputDecoration(
+          labelText: prefixLocalizations.biography,
+          // errorText: controller.errorFullName.value
+        ),
+      ),
+      // ),
+    );
+  }
+
+  Widget inputHobby(AppLocalizations prefixLocalizations) {
+    return Padding(
+      padding: WidgetConstant.edgeInsetForm05,
+      child: MultiSelectDropDown<int>(
+        onOptionSelected: (List<ValueItem> selectedOptions) {},
+        options: const <ValueItem<int>>[
+          ValueItem(label: 'Option 1', value: 1),
+          ValueItem(label: 'Option 2', value: 2),
+          ValueItem(label: 'Option 3', value: 3),
+          ValueItem(label: 'Option 4', value: 4),
+          ValueItem(label: 'Option 5', value: 5),
+          ValueItem(label: 'Option 6', value: 6),
+        ],
+        selectionType: SelectionType.multi,
+        chipConfig: const ChipConfig(wrapType: WrapType.scroll),
+        dropdownHeight: 300,
+        optionTextStyle: const TextStyle(fontSize: 16),
+        selectedOptionIcon: const Icon(Icons.check_circle),
+        radiusGeometry: const BorderRadius.all(Radius.circular(0)),
+      ),
+    );
+  }
+
+  Widget inputGender(AppLocalizations prefixLocalizations) {
+    return Padding(
+      padding: WidgetConstant.edgeInsetForm05,
+      child: DropdownButtonFormField<int>(
+        items: controller.mapGender.entries.map<DropdownMenuItem<int>>(
+          (MapEntry<int, Map<String, String>> entry) {
+            return DropdownMenuItem<int>(
+              value: entry.key,
+              child: Text(entry.value['ind']!),
+            );
+          },
+        ).toList(),
+        onChanged: (value) {
+          // Handle when the value is changed
+        },
+        decoration: InputDecoration(
+          labelText: prefixLocalizations.gender,
+          border: const UnderlineInputBorder(),
+        ),
+      ),
+    );
+  }
 }
 
-
-extension UpdateProfileData on UpdateProfilePageView{
-
-}
-
-extension UpdatePhotoProfileComponent on UpdateProfilePageView{
-  
+extension UpdatePhotoProfileComponent on UpdateProfilePageView {
   Padding currentProfilePhotoContainer() {
-    return  Padding(
+    return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: ClipRRect(
           borderRadius: BorderRadius.circular(8),
@@ -96,7 +216,6 @@ extension UpdatePhotoProfileComponent on UpdateProfilePageView{
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
-                // return Skeletonizer(child: Image.asset(ImageAssetPaths.dummyUser));
               }
             },
           )),
@@ -130,7 +249,7 @@ extension UpdatePhotoProfileComponent on UpdateProfilePageView{
               width: 200,
               child: ElevatedButton(
                 onPressed: () {
-                  myAlert();
+                  alertUploadPhoto();
                 },
                 child: Text(AppLocalizations.of(Get.context!).upload_photo),
               ),
@@ -182,7 +301,7 @@ extension UpdatePhotoProfileComponent on UpdateProfilePageView{
   }
 
   //show popup dialog
-  void myAlert() {
+  void alertUploadPhoto() {
     showDialog(
         context: Get.context!,
         builder: (BuildContext context) {
