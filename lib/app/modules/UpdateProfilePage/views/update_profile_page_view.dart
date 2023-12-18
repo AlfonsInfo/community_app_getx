@@ -29,9 +29,7 @@ class UpdateProfilePageView extends GetView<UpdateProfilePageController> {
         body: SafeArea(
           child: ListView(
             children: [
-              title(
-                  message:
-                      AppLocalizations.of(Get.context!).update_photo_profile),
+              title(AppLocalizations.of(Get.context!).update_photo_profile),
               Obx(
                 () => controller.image.value != null
                     ? newProfilePhotoContainer()
@@ -39,9 +37,7 @@ class UpdateProfilePageView extends GetView<UpdateProfilePageController> {
               ),
               WidgetConstant.spacingCustomable(2.h),
               uploadProfileButton(),
-              title(
-                  message: AppLocalizations.of(Get.context!)
-                      .update_your_information),
+              title(AppLocalizations.of(Get.context!).update_your_information),
               inputFullName(prefixLocalizations),
               inputEmail(prefixLocalizations),
               inputUsername(prefixLocalizations),
@@ -56,7 +52,7 @@ class UpdateProfilePageView extends GetView<UpdateProfilePageController> {
     );
   }
 
-  Padding title({name, message}) {
+  Padding title(message,{name}) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Text(
@@ -77,7 +73,7 @@ extension UpdateProfileData on UpdateProfilePageView {
             width: 200,
             child: ElevatedButton(
               onPressed: () {
-                alertUploadPhoto();
+                confirmUpdateProfile();
               },
               child: Text(AppLocalizations.of(Get.context!).update_profile),
             ),
@@ -85,6 +81,22 @@ extension UpdateProfileData on UpdateProfilePageView {
         ),
       )
     ]);
+  }
+
+    void confirmUpdateProfile() {
+    Get.defaultDialog(
+      title: AppLocalizations.of(Get.context!).confirm_change,
+      middleText: AppLocalizations.of(Get.context!)
+          .update_confirmation(AppLocalizations.of(Get.context!).profile),
+      textConfirm: AppLocalizations.of(Get.context!)
+          .update_subject(AppLocalizations.of(Get.context!).profile),
+      confirmTextColor: Colors.white,
+      cancelTextColor: Colors.black,
+      buttonColor: Colors.blue, // Warna latar belakang tombol konfirmasi
+      radius: 10.0, // Jari-jari sudut dialog
+      textCancel: AppLocalizations.of(Get.context!).cancel,
+      onConfirm: () => controller.handleConfirmUpdateProfileData(),
+    );
   }
 
   Widget inputFullName(AppLocalizations prefixLocalizations) {
@@ -136,8 +148,6 @@ extension UpdateProfileData on UpdateProfilePageView {
     return Padding(
       padding: WidgetConstant.edgeInsetForm05,
       child: TextFormField(
-        // onChanged: (value) => controller.fullNameChanged(value),
-        // initialValue: controller.inputUsername.value,
         maxLines: 3,
         maxLength: 150,
         decoration: InputDecoration(

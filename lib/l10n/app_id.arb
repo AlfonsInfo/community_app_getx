@@ -33,6 +33,7 @@
     "logout_alert_confirm": "Iya, yakin",
     "cancel": "Batal",
     "my_profile" : "Profil Saya",
+    "profile" : "Profil",
     "preferences" : "Preferensi Anda",
     "preferences_save" : "Simpan Preferensi",
     "local_preferences" : "Preferensi Lokal",

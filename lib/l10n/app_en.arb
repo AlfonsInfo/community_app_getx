@@ -33,6 +33,7 @@
     "logout_alert_confirm" : "Yes, Logout",
     "cancel" : "Cancel",
     "logout" : "logout",
+    "profile" : "Profile",
     "my_profile" : "My Profile",
     "preferences" : "Your preferences",
     "preferences_save" : "Save preferences",
